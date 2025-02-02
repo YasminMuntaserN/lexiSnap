@@ -1,18 +1,28 @@
 import styled from "styled-components";
 import { Button } from "../styledComponents/Button";
 import { useEffect } from "react";
+import { media } from "../styledComponents/Media";
 
 const Navigation = styled.div`
   display: flex;
-  align-items: center;
+  align-items: center; 
+  justify-content: center; 
+  text-align: center;
   padding: 10px;
-  justify-content: center;
   gap: 30px;
+  ${media.mobile`
+    align-items:start; 
+    text-align:left; 
+    justify-content:start; 
+    padding: 0;
+    gap: 15px;
+  `}
 `;
 
 const PageIndicator = styled.span`
   font-size: 16px;
   color: var(--background-color);
+  ${media.mobile`margin-top:30px`}
 `;
 
 interface PaginationProps {
