@@ -1,19 +1,11 @@
-import styled from "styled-components";
 import { Content } from "../ui/Content";
 import Page from "../ui/Page";
-import ContactForm from "../ContactForm";
+import ContactForm from "../components/Contact/ContactForm";
 
 function Contact() {
-  const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  padding: 70px;
-`;
+
   return (
     <Page>
-      <ContentContainer>
           <Content>
           <h1>Welcome to LexiSnap's Contact Us Page!</h1>
           <div style={{display:"flex" ,flexDirection:"column" ,gap:"10px" ,marginTop:"20px"}}>
@@ -36,7 +28,6 @@ function Contact() {
             </div>
             <ContactForm />
           </Content>
-      </ContentContainer>
     </Page>
   );
 }
