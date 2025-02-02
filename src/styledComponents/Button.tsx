@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
+import { media } from './Media';
 
-type ButtonVariant = 'default' | 'full' |'small' |'Step';
+type ButtonVariant = 'default' | 'full' |'small' |'Step'|'Cancel' |'submit';
 
 const BUTTON_STYLES: Record<ButtonVariant, ReturnType<typeof css>> = {
   default: css`
@@ -25,23 +26,48 @@ const BUTTON_STYLES: Record<ButtonVariant, ReturnType<typeof css>> = {
     font-family: "Noto Serif Todhri", serif;
     cursor: pointer;  
   `,
+Cancel: css`
+    color:black;
+  width: 20%;
+  border: none;
+  border: 2px solid black;
+  padding: 0.75rem;
+  border-radius: 1.25rem;
+  text-align: center;
+  font-size:21px;
+  font-family: "Noto Serif Todhri", serif;
+cursor: pointer;  
+`,
   small: css`
   background: var(--main-color);
   border: none;
   color:var(--color-white);
   border-radius: 7px;
   text-align: center;
-  font-size:50px;
   cursor: pointer;  
-  width:60px;
-  height:50px;
   font-weight: bold;
-  margin-right:60px;
   margin-top:40px;
+  margin-right:10px;
   &:hover,
 &:focus {
   background: var(--second-color); 
 }
+${media.mobile`
+  width:30px;
+  height:30px;
+`}
+${media.tablet`
+  width:40px;
+  height:40px;
+`}
+  ${media.largeTablet`
+    width:180px;
+    height:50px;
+`}
+${media.desktop`
+  width:180px;
+  height:50px;
+`}
 `,
 Step: css`
 background: var(--second-color);
@@ -51,20 +77,24 @@ padding: 0.75rem;
 border-radius: 1.25rem;
 font-weight: 600;
 text-align: center;
-font-size:21px;
+
 font-family: "Noto Serif Todhri", serif;
 cursor: pointer;  
 margin-top:20px;
 width:180px;
+font-size:21px;
 height:50px;
 &:hover,
 &:focus {
   background: var(--main-color); 
 }
+${media.mobile`
+  width:120px;
+  font-size:18px;
+`}
 `,
 submit: css`
 background: var(--second-color);
-width: 20%;
 border: none;
 color:var(--color-white);
 padding: 0.75rem;
@@ -77,6 +107,12 @@ cursor: pointer;
 &:focus {
   background: var(--main-color); 
 }
+${media.mobile`
+  width: 50%;
+`}
+${media.desktop`
+  width: 20%;
+`}
 `,
 
 };
