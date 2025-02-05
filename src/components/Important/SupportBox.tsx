@@ -9,7 +9,6 @@ const Box = styled.div`
   justify-content: space-between;
   grid-template-columns: 0.5fr 2fr 1fr ;
   align-items:center;
-  flex-direction: row;
   font-size: 20px;
   cursor: pointer;
   padding: 10px;
