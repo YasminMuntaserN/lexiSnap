@@ -1,32 +1,20 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../styledComponents/Button";
 import { RiAddLine } from "react-icons/ri";
-import { useTags } from "../../context/TagsContext";
 import { media } from "../../styledComponents/Media";
 import styled from "styled-components";
 
-function AddNewWordButton() {
-  const {setShownAddWord} =useTags();
-  const navigate = useNavigate();
-  const location = useLocation();  
-
-  const Icon = styled.div`
-  ${media.mobile`font-size: 30px;`}
-  ${media.tablet`font-size: 30px;`}
-  ${media.largeTablet`font-size: 50px;`}
-  ${media.desktop`font-size: 50px;`}
+const Icon = styled.div`
+${media.mobile`font-size: 30px;`}
+${media.tablet`font-size: 30px;`}
+${media.largeTablet`font-size: 50px;`}
+${media.desktop`font-size: 50px;`}
 `;
 
-  const handleAddNew = () => {
-    if (location.pathname !== "/tags") { 
-      navigate("/addNewWord"); 
-    } else {
-      setShownAddWord(true);
-    }
-  };
-
+function AddNewWordButton() {
+  const navigate = useNavigate();
   return (
-    <Button variant="small" onClick={handleAddNew}>
+    <Button variant="small" style={{margin:"20px"}} onClick={()=> navigate("/addNewWord")}>
       <Icon as={RiAddLine}/>
     </Button>
   );
