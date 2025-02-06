@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { media } from './Media';
 
-type ButtonVariant = 'default' | 'full' |'small' |'Step'|'Cancel' |'submit';
+type ButtonVariant = 'default' | 'full' |'small' |'Step'|'Cancel' |'submit' |'Link';
 
 const BUTTON_STYLES: Record<ButtonVariant, ReturnType<typeof css>> = {
   default: css`
@@ -61,11 +61,11 @@ ${media.tablet`
   height:40px;
 `}
   ${media.largeTablet`
-    width:180px;
+    width:80px;
     height:50px;
 `}
 ${media.desktop`
-  width:180px;
+  width:80px;
   height:50px;
 `}
 `,
@@ -114,7 +114,19 @@ ${media.desktop`
   width: 20%;
 `}
 `,
-
+Link: css`
+background:none;
+border: none;
+color: #0a2977;
+text-align: center;
+font-size:23px;
+font-family: "Noto Serif Todhri", serif;
+cursor: pointer;  
+&:hover,
+&:focus {
+  color: #971212;
+}
+`,
 };
 
 interface ButtonProps {
