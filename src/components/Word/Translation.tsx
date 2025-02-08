@@ -10,12 +10,12 @@ import { Info, InfoBox } from "../../styledComponents/InfoBox";
 function Translation() {
   const [isAdd, setIsAdd] = useState(false);
   
-  const {updateWord ,word}= useWord();
+  const {updateWord ,word ,isShowMode}= useWord();
   return (
     <>
     <Operation> 
       <Text>Add a translation</Text>
-      <Icon as={RiAddLine} onClick={() => setIsAdd(prev => !prev)} />
+      {isShowMode && <Icon as={RiAddLine} onClick={() => setIsAdd((prev) => !prev)} />}
       {isAdd && (
       <Input 
         placeholder="Add Translation..." 

@@ -15,7 +15,7 @@ function Statements() {
 
   const [showTranslation, setShowTranslation] = useState<{ [key: number]: boolean }>({});
 
-  const { updateWord, word } = useWord();
+  const { updateWord, word ,isShowMode} = useWord();
 
   const toggleTranslation = (index: number) => {
     setShowTranslation((prev) => ({
@@ -28,7 +28,7 @@ function Statements() {
     <>
       <Operation>
         <Text>Example Statements</Text>
-        <Icon as={RiAddLine} onClick={() => setIsAdd((prev) => !prev)} />
+        {isShowMode && <Icon as={RiAddLine} onClick={() => setIsAdd((prev) => !prev)} />}
         {(statement.length !== 0 || translation.length !== 0) && (
           <Icon
             as={BiSave}

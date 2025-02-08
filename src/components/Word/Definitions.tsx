@@ -9,13 +9,13 @@ import { InfoBox  ,Info} from "../../styledComponents/InfoBox";
 
 function Definitions() {
   const [isAdd, setIsAdd] = useState(false);
-  const {updateWord ,word}= useWord();
+  const {updateWord ,word ,isShowMode}= useWord();
 
   return (
     <>
     <Operation> 
       <Text>Definitions</Text>
-      <Icon as={RiAddLine} onClick={() => setIsAdd(prev => !prev)} />
+      {isShowMode && <Icon as={RiAddLine} onClick={() => setIsAdd((prev) => !prev)} />}
       {isAdd && (
         <Input 
           placeholder="Write a definitions here.."
