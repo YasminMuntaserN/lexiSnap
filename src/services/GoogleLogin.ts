@@ -1,32 +1,32 @@
-export const handleGoogleLoginSuccess = async (credentialResponse) => {
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "./firebase";
+
+const backendLoginUrl = "https://lexisnap-server-v2.onrender.com/api/v2/auth/google-sign-in"; 
+
+export const signInWithGoogle = async () => {
   try {
-    const { credential } = credentialResponse;
+    const result = await signInWithPopup(auth, googleProvider);
+    console.log(result);
+    const idToken = await result.user.getIdToken();
+    console.log(idToken);
+    const response = await fetch(backendLoginUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ idToken }),
+    });
 
-    const response = await fetch(
-      "https://lexisnap-server-v2.onrender.com/api/v2/auth/google-sign-in",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idToken: credential }),
-      }
-    );
+    if (!response.ok) throw new Error("Authentication failed");
+    
+    const data = await response.json(); 
+    
+    localStorage.setItem("accessToken", data.accessToken);
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to log in");
-    }
-
-    const data = await response.json();
-
-    if (data.success) {
-      console.log("Login Successful:", data);
-      localStorage.setItem("accessToken", data.accessToken);
-    } else {
-      console.error("Login Failed:", data.message);
-    }
+    console.log("Login successful:", data.data);
+    return data;
   } catch (error) {
-    console.error("Error during login:", error.message);
+    console.error("Google Sign-In Error:", error.message);
+    return null;
   }
 };
