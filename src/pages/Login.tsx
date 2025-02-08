@@ -4,8 +4,7 @@ import { Button } from "../styledComponents/Button";
 import { FcGoogle } from "react-icons/fc";
 import ThemeToggle from "../ui/ThemeToggle";
 import Logo from "../ui/Logo";
-import { handleGoogleLoginSuccess } from "../services/GoogleLogin";
-import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
+import { useLogin } from "../components/GoogleLogin/hooks/useLogin";
 
 const Container = styled.div`
   display: flex;
@@ -19,19 +18,18 @@ const Container = styled.div`
 `;
 
 function Login() {
+  
+  const{ mutate :GoogleLogin, data: user, isLoading, error }=useLogin();
 
-  const googleLogin = useGoogleLogin({
-    onSuccess: handleGoogleLoginSuccess,
-    onError: () => console.error("Login Failed"),
-  });
-
+  console.log(user);
   return (
       <Background>
         <Container>
           <Logo />
-          <Button variant="full" onClick={() => googleLogin()}>
+          {error && <p>there is problem with loging </p>}
+          <Button variant="full" onClick={() => GoogleLogin()}>
             <FcGoogle style={{marginRight: '20px', fontSize: '23px' }} />
-            Continue with Google
+            {isLoading ? "Signing in..." : "Continue with Google"}
           </Button>
           <ThemeToggle />
         </Container>
@@ -39,10 +37,4 @@ function Login() {
   );
 }
 
-export default function LoginWrapper() {
-  return (
-    <GoogleOAuthProvider clientId="211204450015-a7v6g1df8r0iuno5ritt72i8hj82ab6r.apps.googleusercontent.com">
-      <Login />
-    </GoogleOAuthProvider>
-  );
-}
+export default Login;

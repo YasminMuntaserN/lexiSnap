@@ -1,11 +1,13 @@
 import { Content } from "../ui/Content";
 import Page from "../ui/Page";
 import SupportBox from "../components/Important/SupportBox";
+import Link from "../ui/Link";
 
 function Important() {
 
   return (
     <Page>
+          <Link to="dashboard" style={{margin:"20px"}}/>
           <Content>
           <h1>  Support Our Journey </h1>
           <div style={{display:"flex" ,flexDirection:"column" ,gap:"10px" ,marginTop:"20px"}}>

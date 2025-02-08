@@ -1,11 +1,13 @@
 import { Content } from "../ui/Content";
 import Page from "../ui/Page";
 import ContactForm from "../components/Contact/ContactForm";
+import Link from "../ui/Link";
 
 function Contact() {
 
   return (
     <Page>
+      <Link to="dashboard" style={{margin:"20px"}}/>
           <Content>
           <h1>Welcome to LexiSnap's Contact Us Page!</h1>
           <div style={{display:"flex" ,flexDirection:"column" ,gap:"10px" ,marginTop:"20px"}}>

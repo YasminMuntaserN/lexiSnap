@@ -1,17 +1,11 @@
-import ExtensionPagination from "../ExtensionPagination";
+import ExtensionPagination from "../components/Extension/ExtensionPagination";
 import Page from "../ui/Page";
-import styled from "styled-components";
 import { useState } from "react";
 import { Button } from "../styledComponents/Button";
 import { Content } from "../ui/Content";
+import Link from "../ui/Link";
 
-const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  padding: 70px;
-`;
+
 
 function Extension() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,10 +13,10 @@ function Extension() {
 
   return (
     <Page>
-      <ContentContainer>
       {!showSteps && <Content>
             <div>
-            <h1>Discover the LexiSnap Chrome Extension!</h1>
+            <Link to="dashboard" style={{margin:"20px"}}/>
+            <h1> Discover the LexiSnap Chrome Extension!</h1>
               <p>We're excited to introduce the LexiSnap Chrome Extension, designed to enhance your vocabulary learning experience.</p>
             </div>
               <div>
@@ -63,7 +57,6 @@ function Extension() {
           </Content>
           }
           {showSteps && <ExtensionPagination currentPage={currentPage} setCurrentPage={setCurrentPage} setShowSteps={setShowSteps}/>}
-      </ContentContainer>
     </Page>
   );
 }
