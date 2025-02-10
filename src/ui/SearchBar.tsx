@@ -16,43 +16,75 @@ const Input = styled.input`
       width: 200px; 
     `}
 `;
-interface SearchBarProps{
-  placeholder:string;
-  style?:object;
-  type?:string;
+interface SearchBarProps {
+  placeholder: string;
+  style?: object;
+  type?: string;
 }
+
 function SearchBar({ placeholder, style, type }: SearchBarProps) {
   const [inputValue, setInputValue] = useState("");
   const { mutate, isLoading, error } = useSearch();
-  const { WordsPage, TagsPage, setSearchInfo } = useWord();
+  const { WordsPage, TagsPage, setSearchInfo, searchInfo } = useWord();
 
   const handleSearch = () => {
-    setSearchInfo({ list:[], isLoading:false, error:null ,isEmpty:true ,isSearch:false});
-
-    if (inputValue.length < 2) return; 
-    mutate({ query: inputValue, page: type === "tags" ? TagsPage : WordsPage }, {
-      onSuccess: (data) => {
-        setSearchInfo({ 
-          list: data || [], 
-          isLoading, 
-          error,
-          isEmpty: !data || data.length === 0 
-          ,isSearch:true
-        });
-      }
+    setSearchInfo({ 
+      list: [], 
+      isLoading: false, 
+      error: null, 
+      isEmpty: true, 
+      isSearch: false, 
+      tagId: searchInfo?.tagId || "" 
     });
+
+    if (inputValue.length < 2) return;
+
+    mutate(
+      { 
+        query: inputValue, 
+        page: type === "tags" ? TagsPage : WordsPage,
+        tag: searchInfo?.tagId
+      }, 
+      {
+        onSuccess: (data) => {
+          setSearchInfo({ 
+            list: data || [], 
+            isLoading, 
+            error,
+            isEmpty: !data || data.length === 0,
+            isSearch: true,
+            tagId: searchInfo?.tagId || "" 
+          });
+        }
+      }
+    );
   };
-  useEffect(()=> { 
-    if(inputValue.length === 0) setSearchInfo({ list:[], isLoading:false, error:null ,isEmpty:true ,isSearch:false })
-    else 
-    setSearchInfo({isSearch:true })
-  },[inputValue ,setSearchInfo] )
+
+  useEffect(() => {
+    if (inputValue.length === 0) {
+      setSearchInfo(prev => ({ 
+        ...prev,
+        list: [], 
+        isLoading: false, 
+        error: null, 
+        isEmpty: true, 
+        isSearch: false,
+        tagId: prev.tagId 
+      }));
+    } else {
+      setSearchInfo(prev => ({ 
+        ...prev, 
+        isSearch: true 
+      }));
+    }
+  }, [inputValue, setSearchInfo]);
+
   return (
     <div style={{ position: "relative" }}>
       <Input
         placeholder={placeholder}
         value={inputValue}
-        onChange={(e) =>setInputValue(e.target.value)}
+        onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
@@ -62,8 +94,16 @@ function SearchBar({ placeholder, style, type }: SearchBarProps) {
         type="text"
         style={style}
       />
-      <FaSearch style={{ position: "absolute", right: `${style ? "50px" : "20px"}`, top: "5px", fontSize: "27px" }} />
+      <FaSearch 
+        style={{ 
+          position: "absolute", 
+          right: `${style ? "50px" : "20px"}`, 
+          top: "5px", 
+          fontSize: "27px" 
+        }} 
+      />
     </div>
   );
 }
+
 export default SearchBar;

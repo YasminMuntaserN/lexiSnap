@@ -5,6 +5,8 @@ import { FaMobileAlt } from "react-icons/fa";
 import { GrContact } from "react-icons/gr";
 import { FaHandHoldingHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
+import { media } from "../styledComponents/Media";
 
 const Container = styled.div`
   display: grid;
@@ -12,6 +14,7 @@ const Container = styled.div`
   border: 2px solid var(--color-gray); 
   border-radius: 30px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
+
 `;
 
 const Box = styled.div`
@@ -33,24 +36,42 @@ const Box = styled.div`
     transform: scale(1.1); 
     transition: all 0.2s ease; 
   }
+  ${media.mobile`
+    display: grid;
+  justify-content: space-between;
+  grid-template-columns: 1fr 1fr ;
+  `}
+
+  ${media.tablet`
+    display: grid;
+  justify-content: space-between;
+  grid-template-columns: 1fr 1fr ;
+    `}
+
 `;
 
 const Icon = styled.div`
   font-size: 32px;
+  ${media.mobile`font-size: 21px;`}
+  ${media.tablet`font-size: 21px;`}
 `;
 
 function Sidebar() {
+  const{isMobileMode ,DisplayMenu, setDisplayMenu}=useTheme();
   const navigate = useNavigate();
-
+  console.log(DisplayMenu);
   const handleNavigation = (path: string) => {
     navigate(path);
+    setDisplayMenu(true);
   };
 
   return (
-    <Container>
-      <Box onClick={() => handleNavigation('/Tags')}>
+    <>
+    {!(isMobileMode && DisplayMenu) &&
+    (<Container>
+      <Box onClick={() => handleNavigation('/tags')}>
         <Icon as={FaHashtag} />
-        Tags
+            Tags
       </Box>
       <Box onClick={() => handleNavigation('/extension')}>
         <Icon as={IoExtensionPuzzle} />
@@ -60,7 +81,7 @@ function Sidebar() {
         <Icon as={FaMobileAlt} />
         Mobile App
       </Box>
-      <Box onClick={() => handleNavigation('/Important')}>
+      <Box onClick={() => handleNavigation('/important')}>
         <Icon as={FaHandHoldingHeart} />
         Important
       </Box>
@@ -68,7 +89,10 @@ function Sidebar() {
         <Icon as={GrContact} />
         Contact Us
       </Box>
+    
     </Container>
+    )}
+    </>
   );
 }
 
