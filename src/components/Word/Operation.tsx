@@ -8,7 +8,7 @@ import { useWord } from "../../context/WordContext";
 import { Info, InfoBox } from "../../styledComponents/InfoBox";
 
 function Operation({ type }) {
-  const { word } = useWord();
+  const { word ,isShowMode } = useWord();
 
   return (
     <>
@@ -17,7 +17,7 @@ function Operation({ type }) {
 
         <Modal>
           <Modal.Open opens={type}>
-            <Icon as={RiAddLine} />
+          {isShowMode ? <Icon as={RiAddLine} /> :<p></p>}
           </Modal.Open>
 
           <Modal.Window name={type}>
@@ -28,7 +28,7 @@ function Operation({ type }) {
 
       <InfoBox>
         {word?.[type]?.map((value, index) => (
-          <Info key={index}>{type!=="tags"?value:value.name}</Info>
+          <Info key={index}>{ (typeof value === "object")?type=== "tags" ?value.name :value.word : value }</Info>
         ))}
       </InfoBox>
     </>

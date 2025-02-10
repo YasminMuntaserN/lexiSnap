@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { GiSoundWaves } from "react-icons/gi";
 import { speakWord } from "../../services/Speech";
 import { Line } from "../../ui/Line";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -38,8 +39,9 @@ const IconWrapper = styled.div`
 `;
 
 function Word({ word }) {
+  const navigate =useNavigate()
   return (
-    <Container>
+    <Container  onClick={() => navigate(`/words/${word._id}`)}>
       <Line />
       <div style={{ width: "100%" }}>
         <SubContainer>

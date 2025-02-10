@@ -3,7 +3,6 @@ import { HiArrowLeftCircle } from "react-icons/hi2";
 import { useEffect, useState } from "react";
 import { MdOutlineBookmarkAdded } from "react-icons/md";
 import { useWord } from "../../context/WordContext";
-import { useGetTag } from "../Tags/hooks/useGetTags";
 import { Button } from "../../styledComponents/Button";
 import {Loader} from "../../ui/Loader";
 import ScrollContainer from "../../ui/ScrollContainer";
@@ -37,37 +36,31 @@ interface WordsListProps {
 }
 
 function WordsList({ type, TagId, setTagWordsId, onBack }: WordsListProps) {
-  const { wordList :words, isLoading : wordsLoading, error: wordsError ,mutate:getWords ,searchInfo} = useWordList();
-  const { mutate: getTagWords, Tag, isLoading: TagWordsLoading, error: TagWordsError } = useGetTag();
+  const { wordList, isLoading, error ,Tag} = useWordList();
   const [isAdded, setIsAdded] = useState<{ [key: number]: boolean }>({});
-  const { updateWord, word ,SetIsShowMode ,WordsPage } = useWord();
+  const { updateWord, word, SetIsShowMode, searchInfo } = useWord();
   const isTagWords = TagId !== undefined;
-  const WordsList = isTagWords ? Tag?.relatedWords : words;
 
   useEffect(() => {
-    if (isTagWords) {
-      getTagWords(TagId);
-    } else {
-      getWords();
-    }
-  }, [getWords, getTagWords, isTagWords, TagId ,WordsPage]);
-
-  useEffect(() => {
-    if (WordsList) {
-      WordsList.forEach((w, index) => {
-        if (word[type]?.includes(w.word)) {
+    if (wordList) {
+      wordList.forEach((w, index) => {
+        if (word[type]?.some(item => 
+          typeof item === 'string' 
+            ? item === w.word 
+            : item.word === w.word
+        )) {
           setIsAdded((prev) => ({ ...prev, [index]: true }));
         }
       });
     }
-  }, [WordsList, word, type]);
+  }, [wordList, word, type]);
 
-  const handleClick = (index: number, word: string ,_id: number) => {
+  const handleClick = (index: number, wordText: string, _id: number) => {
     setIsAdded((prev) => ({
       ...prev,
       [index]: true,
     }));
-    updateWord({ [type]: [...(word[type] || []), { _id  , word}] });
+    updateWord({ [type]: [...(word[type] || []), { _id, word: wordText }] });
     SetIsShowMode(true);
   };
 
@@ -86,8 +79,8 @@ function WordsList({ type, TagId, setTagWordsId, onBack }: WordsListProps) {
         placeholder={`Search for a ${type}...`}
         type={type}
       />
-      {(wordsLoading || TagWordsLoading) && <Loader />}
-      {(wordsError || TagWordsError) && <p>Error loading words...</p>}
+      {isLoading && <Loader />}
+      {error && <p>Error loading words...</p>}
       {isTagWords && (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Button style={{ fontSize: "32px" }} variant="Link" onClick={handleBack}>
@@ -96,24 +89,23 @@ function WordsList({ type, TagId, setTagWordsId, onBack }: WordsListProps) {
           <h3>All Words In {Tag?.name}</h3>
         </div>
       )}
-    {(searchInfo?.isEmpty && searchInfo?.isSearch )?
-        (
+      {(searchInfo?.isEmpty && searchInfo?.isSearch) ? (
         <p style={{ textAlign: "center", fontSize: "18px", color: "gray" }}>
-        No words found.
+          No words found.
         </p>
-    ):
-    (WordsList?.length > 0 &&  WordsList?.map((word, index) => (
-        <Text
-          key={index}
-          added={isAdded[index] || false}
-          onClick={() => !isAdded[index] && handleClick(index, word.word ,word._id)}
-        >
-          <p>{word.word}</p>
-          <p>{word.firstTranslation}</p>
-          {isAdded[index] && <MdOutlineBookmarkAdded style={{ color: "green", fontSize: "27px" }} />}
-        </Text>
-      ))
-    )}
+      ) : (
+        wordList?.map((word, index) => (
+          <Text
+            key={index}
+            added={isAdded[index] || false}
+            onClick={() => !isAdded[index] && handleClick(index, word.word, word._id)}
+          >
+            <p>{word.word}</p>
+            <p>{word.firstTranslation}</p>
+            {isAdded[index] && <MdOutlineBookmarkAdded style={{ color: "green", fontSize: "27px" }} />}
+          </Text>
+        ))
+      )}
     </ScrollContainer>
   );
 }
