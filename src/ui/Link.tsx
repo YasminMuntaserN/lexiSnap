@@ -14,7 +14,7 @@ function Link({to ,style ,onClick}:LinkProps){
   
   const handleOnClick =()=>{
     navigate(`/${to}`);
-    onClick();
+    if(onClick) onClick();
     setSearchTagId("");
     setWordsPage(1);
     setTagsPage(1);

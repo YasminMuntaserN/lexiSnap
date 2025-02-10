@@ -6,9 +6,9 @@ const backendLoginUrl = "https://lexisnap-server-v2.onrender.com/api/v2/auth/goo
 export const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
-    console.log(result);
+    
     const idToken = await result.user.getIdToken();
-    console.log(idToken);
+    
     const response = await fetch(backendLoginUrl, {
       method: "POST",
       headers: {
@@ -23,7 +23,6 @@ export const signInWithGoogle = async () => {
     
     localStorage.setItem("accessToken", data.accessToken);
 
-    console.log("Login successful:", data.data);
     return data;
   } catch (error) {
     console.error("Google Sign-In Error:", error.message);

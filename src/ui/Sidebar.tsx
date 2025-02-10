@@ -59,7 +59,7 @@ const Icon = styled.div`
 function Sidebar() {
   const{isMobileMode ,DisplayMenu, setDisplayMenu}=useTheme();
   const navigate = useNavigate();
-  console.log(DisplayMenu);
+
   const handleNavigation = (path: string) => {
     navigate(path);
     setDisplayMenu(true);

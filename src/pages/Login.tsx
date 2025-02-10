@@ -19,9 +19,8 @@ const Container = styled.div`
 
 function Login() {
   
-  const{ mutate :GoogleLogin, data: user, isLoading, error }=useLogin();
+  const{ mutate :GoogleLogin, isLoading, error }=useLogin();
 
-  console.log(user);
   return (
       <Background>
         <Container>

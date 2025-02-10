@@ -191,8 +191,6 @@ export function WordProvider({ children }: WordProviderProps) {
     return wordToSave;
   }
 
-  console.log(word);
-  console.log(`${JSON.stringify(searchInfo)}`);
 
   return (
     <WordContext.Provider

@@ -9,6 +9,7 @@ import { useWord } from "../context/WordContext";
 import { useAddWord } from "../components/Word/hooks/useAddWord";
 import { useNavigate } from "react-router-dom";
 import {Loader} from "../ui/Loader";
+import Link from "../ui/Link";
 
 
 const Container = styled.div`padding:40px;`;
@@ -44,6 +45,7 @@ function AddNewWord() {
   if(error) return <p>Something get Wrong {error.message}</p>
   return (
     <Page>
+      <Link to="dashboard" />
       {isLoading ?<Loader />
       :<Container>
         <div style={{ display: "flex", gap: "70px" }}>
