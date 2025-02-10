@@ -12,33 +12,41 @@ import { UserProvider } from "./context/UserContext.tsx";
 import { WordProvider } from "./context/WordContext.tsx";
 import TagDetails from "./pages/TagDetails.tsx";
 import WordDetails from "./pages/WordDetails.tsx";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ProtectedRoute from "./ui/ProtectedRoute.tsx";
+
 function App() {
   const queryClient = new QueryClient();
   return (
-<QueryClientProvider client={queryClient}>
-  <ThemeProvider >
-      <WordProvider>
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <UserProvider>
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/words/:wordId" element={<WordDetails />} /> 
-          <Route path="/extension" element={<Extension />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/important" element={<Important />} />
-          <Route path="/addNewWord" element={<AddNewWord/>} />
-          <Route path="/tags" element={<Tags />} />
-          <Route path="/tags/:tagId" element={<TagDetails />} /> 
-          {/*<Route path="*" element={<PageNotFound />} /> */}
-        </Routes>
-      </UserProvider>
+        <ThemeProvider>
+          <WordProvider>
+            <UserProvider>
+              <ReactQueryDevtools initialIsOpen={false} />
+              <Routes>
+                <Route path="/" element={<Navigate to="/login" />} />
+                <Route path="/login" element={<Login />} />
+
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/words/:wordId" element={<WordDetails />} /> 
+                  <Route path="/extension" element={<Extension />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/important" element={<Important />} />
+                  <Route path="/addNewWord" element={<AddNewWord />} />
+                  <Route path="/tags" element={<Tags />} />
+                  <Route path="/tags/:tagId" element={<TagDetails />} /> 
+                </Route>
+
+                {/* <Route path="*" element={<PageNotFound />} /> */}
+              </Routes>
+            </UserProvider>
+          </WordProvider>
+        </ThemeProvider>
       </BrowserRouter>
-      </WordProvider>
-  </ThemeProvider>
-  </QueryClientProvider>
-  )
+    </QueryClientProvider>
+  );
 }
 
 export default App;
