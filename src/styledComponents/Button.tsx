@@ -17,7 +17,7 @@ const BUTTON_STYLES: Record<ButtonVariant, ReturnType<typeof css>> = {
     background: var(--main-color);
     width: 100%;
     border: none;
-    color:var(--color-white);
+    color:white;
     padding: 0.75rem;
     border-radius: 1.25rem;
     font-weight: 600;

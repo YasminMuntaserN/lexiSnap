@@ -79,8 +79,6 @@ function ScrollContainer({ useFor, children ,size}: ScrollContainerProps) {
     };
   }, [TagsTotalPages,setWordsPage, setTagsPage, useFor, WordsTotalPages]);
 
-  console.log(WordsPage);
-
   return (
     <>
       <Container size={size} ref={containerRef}>{children}</Container>

@@ -33,7 +33,6 @@ export async function addEntity(data ,entityName) {
 }
 
 export async function getEntities(entityName) {
-    console.log(`${API_URL}/${entityName}`);
 try {
     const res = await fetch(`${API_URL}/${entityName}`, {
         method: "GET",
@@ -58,7 +57,6 @@ try {
 }
 
 export async function getEntity(entityName) {
-    console.log(`${API_URL}/${entityName}`);
 try {
     const res = await fetch(`${API_URL}/${entityName}`, {
         method: "GET",
@@ -84,7 +82,6 @@ try {
 }
 
 export async function updateEntity(entityName ,data) {
-    console.log(`${API_URL}/${entityName}`);
 try {
     const res = await fetch(`${API_URL}/${entityName}`, {
         method: "PUT",
@@ -110,7 +107,6 @@ try {
 }
 
 export async function search(query ,page ,tag) {
-    console.log(`${API_URL}/search?query=${query}&page=${page}`);
 try {
     const url =tag === "" ?
         `${API_URL}/search?query=${query}&page=${page}` :
@@ -135,4 +131,26 @@ try {
     console.error(`Error fetching this query: ${query}:`, error);
     throw error;
 }
+}
+
+export async function deleteEntity(entityName) {
+try {
+    const res = await fetch(`${API_URL}/${entityName}`, {
+        method: "DELETE",
+        headers: {
+            "Accept": "*/*",
+            "Authorization": `Bearer ${AUTH_TOKEN}`,
+        },
+    });
+
+    if (!res.ok) {
+        throw new Error(`Failed to delete ${entityName}`);
+    }
+
+    return res.status === 204;
+} catch (error) {
+    console.error(`Error deleting ${entityName}:`, error);
+    throw error;
+}
+
 }
