@@ -21,6 +21,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [DisplayMenu, setDisplayMenu] = useState<boolean>(true);
 
 
+
   useEffect(() => {
     const checkMobileMode = () => {
       if (window.innerWidth <= 768) {
@@ -40,7 +41,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode ,isMobileMode, setIsMobileMode ,DisplayMenu, setDisplayMenu}}>
+    <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode ,
+    isMobileMode, setIsMobileMode ,DisplayMenu,
+    setDisplayMenu}}>
       {children}
     </ThemeContext.Provider>
   );
