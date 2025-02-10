@@ -109,11 +109,13 @@ try {
 }
 }
 
-//https://lexisnap-server-v2.onrender.com/api/v2/search?query=oopp&page=1
-export async function search(query page) {
+export async function search(query ,page ,tag) {
     console.log(`${API_URL}/search?query=${query}&page=${page}`);
 try {
-    const res = await fetch(`${API_URL}/search?query=${query}&page=${page}`, {
+    const url =tag === "" ?
+        `${API_URL}/search?query=${query}&page=${page}` :
+        `${API_URL}/search?query=${query}&tags=${tag}&page=1`;
+    const res = await fetch(url, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

@@ -4,11 +4,12 @@ import { search } from "../../../services/BaseApi";
 interface SearchParams {
   query: string;
   page: number;
+  tag?: string;
 }
 
 export function useSearch() {
   const { mutate, data: wordList, status, error } = useMutation({
-    mutationFn: ({ query, page }: SearchParams) => search(query, page),
+    mutationFn: ({ query, page ,tag}: SearchParams) => search(query, page ,tag),
     mutationKey: ["search"],
   });
 
