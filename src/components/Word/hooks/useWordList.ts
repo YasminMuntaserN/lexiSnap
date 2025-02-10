@@ -25,7 +25,6 @@ export function useWordList() {
 
   useEffect(() => {
     if (searchInfo?.tagId) {
-      console.log(`searchInfo?.tagId ${searchInfo?.tagId}`)
       getTagWords(searchInfo.tagId);
     }
   }, [getTagWords, searchInfo?.tagId]);

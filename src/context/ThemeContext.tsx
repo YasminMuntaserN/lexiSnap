@@ -5,7 +5,7 @@ interface ThemeContextType {
   setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
   isMobileMode: boolean;
   setIsMobileMode: React.Dispatch<React.SetStateAction<boolean>>;
-  DisplayMenu: boolean;
+  displayMenu: boolean;
   setDisplayMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -16,34 +16,40 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-  const [isMobileMode, setIsMobileMode] = useState<boolean>(false);
-  const [DisplayMenu, setDisplayMenu] = useState<boolean>(true);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+      //Through this line, it will be determined whether the user has activated dark mode or not, and accordingly the default value will be
+    const storedTheme = localStorage.getItem("isDarkMode");
+    if (storedTheme !== null) return storedTheme === "true"; 
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
 
+  const [isMobileMode, setIsMobileMode] = useState<boolean>(window.innerWidth <= 768);
+  const [displayMenu, setDisplayMenu] = useState<boolean>(true);
 
-
+  // Listen for theme changes and save to localStorage
   useEffect(() => {
-    const checkMobileMode = () => {
-      if (window.innerWidth <= 768) {
-        setIsMobileMode(true); 
-      } else {
-        setIsMobileMode(false); 
-      }
-    };
+    localStorage.setItem("isDarkMode", isDarkMode.toString());
+  }, [isDarkMode]);
 
-    checkMobileMode();
+  // Detect system dark mode changes
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  // Detect window resize for mobile mode
+  useEffect(() => {
+    const checkMobileMode = () => setIsMobileMode(window.innerWidth <= 768);
 
     window.addEventListener("resize", checkMobileMode);
-
-    return () => {
-      window.removeEventListener("resize", checkMobileMode);
-    };
+    return () => window.removeEventListener("resize", checkMobileMode);
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode ,
-    isMobileMode, setIsMobileMode ,DisplayMenu,
-    setDisplayMenu}}>
+    <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode, isMobileMode, setIsMobileMode, displayMenu, setDisplayMenu }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -51,10 +57,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
 export function useTheme(): ThemeContextType {
   const context = useContext(ThemeContext);
-
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-
+  if (!context) throw new Error("useTheme must be used within a ThemeProvider");
   return context;
 }
