@@ -45,7 +45,7 @@ function TagsList({ showTagsList, type, setShowTagsList }: TagsListProps) {
   const { mutate: getTags, Tags, isLoading: TagsLoading, error: TagsError } = useGetTags();
   const [isAdded, setIsAdded] = useState<{ [key: number]: boolean }>({});
   const [TagWordsId, setTagWordsId] = useState<string>("");
-  const { updateWord, word } = useWord();
+  const { updateWord, word, setSearchInfo } = useWord();
 
   useEffect(() => {
     getTags();
@@ -54,22 +54,25 @@ function TagsList({ showTagsList, type, setShowTagsList }: TagsListProps) {
   useEffect(() => {
     if (Tags && type === "tags") {
       Tags.forEach((t, index) => {
-        if (word.tags?.includes(t.name)) {
+        if (word.tags?.some(tag => 
+          typeof tag === 'string' ? tag === t.name : tag.name === t.name
+        )) {
           setIsAdded((prev) => ({ ...prev, [index]: true }));
         }
       });
     }
-  }, [word, Tags ,TagWordsId ,type]);
+  }, [Tags, word.tags, type]);
 
   const handleClick = (index: number, tagName: string, Id: string) => {
     if (showTagsList) {
       setTagWordsId(Id);
+      setSearchInfo(prev => ({ ...prev, tagId: Id }));
     } else {
       setIsAdded((prev) => ({
         ...prev,
         [index]: true,
       }));
-      updateWord({ tags:[{id:Id , name:tagName}] });
+      updateWord({ tags: [...(word.tags || []), { id: Id, name: tagName }] });
     }
   };
 
@@ -80,6 +83,7 @@ function TagsList({ showTagsList, type, setShowTagsList }: TagsListProps) {
         TagId={TagWordsId}
         onBack={() => {
           setTagWordsId("");
+          setSearchInfo(prev => ({ ...prev, tagId: "" }));
           if (showTagsList) {
             setShowTagsList(true);
           }
@@ -90,15 +94,15 @@ function TagsList({ showTagsList, type, setShowTagsList }: TagsListProps) {
 
   return (
     <Container>
-      {TagsLoading &&<Loader />}
-      {TagsError && <p>Error loading words...</p>}
+      {TagsLoading && <Loader />}
+      {TagsError && <p>Error loading tags...</p>}
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         {showTagsList && (
           <Button style={{ fontSize: "32px" }} variant="Link" onClick={() => setShowTagsList(false)}>
             <HiArrowLeftCircle />
           </Button>
         )}
-        <h3>All Tags You Added:</h3>
+        <h2>All Tags You Added:</h2>
       </div>
       {Tags?.map((tag, index) => (
         <Text
