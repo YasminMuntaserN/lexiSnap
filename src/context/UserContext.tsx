@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface User {
@@ -12,7 +12,8 @@ interface User {
 
 interface UserContextType {
   user: User | null;
-  loginUser: (userData: User) => void;
+  accessToken: string | null;
+  loginUser: (userData: User, token: string) => void;
   logout: () => void;
 }
 
@@ -23,28 +24,35 @@ interface UserProviderProps {
 }
 
 export function UserProvider({ children }: UserProviderProps) {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const [user, setUser] = useState<User | null>(() => {
     const savedUser = localStorage.getItem("user");
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  const loginUser = (userData: User) => {
+  const [accessToken, setAccessToken] = useState<string | null>(() => {
+    return localStorage.getItem("accessToken") || null;
+  });
+
+  const loginUser = (userData: User, token: string) => {
     setUser(userData);
+    setAccessToken(token);
     localStorage.setItem("user", JSON.stringify(userData));
-    navigate('/dashboard');
+    localStorage.setItem("accessToken", token);
+    navigate("/dashboard");
   };
 
   const logout = () => {
     setUser(null);
+    setAccessToken(null);
     localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
-    <UserContext.Provider value={{ user, loginUser, logout }}>
+    <UserContext.Provider value={{ user, accessToken, loginUser, logout }}>
       {children}
     </UserContext.Provider>
   );
@@ -52,8 +60,6 @@ export function UserProvider({ children }: UserProviderProps) {
 
 export function useUser(): UserContextType {
   const context = useContext(UserContext);
-  if (!context) {
-    throw new Error("useUser must be used within a UserProvider");
-  }
+  if (!context) throw new Error("useUser must be used within a UserProvider");
   return context;
 }
