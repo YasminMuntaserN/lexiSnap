@@ -1,9 +1,7 @@
-import { useTheme } from "../context/ThemeContext"
 
 function Logo() {
-  const{isDarkMode}  = useTheme();
   return (
-    <img src={`${isDarkMode ? "./DarkLogo.png" :"./LightLogo.png"}`} alt="logo" />
+    <img src="./LightLogo.png" alt="logo" />
   )
 }
 
