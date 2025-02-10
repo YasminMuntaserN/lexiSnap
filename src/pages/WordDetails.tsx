@@ -12,6 +12,7 @@ import WordOperations from "../components/Word/WordOperations";
 import { FcReading } from "react-icons/fc";
 import WordDetailsHeader from "./WordDetailsHeader";
 import { Header } from "../styledComponents/Header";
+import { useDeleteWord } from "../components/Word/hooks/useAddWord";
 
 
 const Container = styled.div`padding-left:80px;`;
@@ -20,6 +21,7 @@ function WordDetails(){
   const {wordId}=useParams();
   const {mutate :getWord , isLoading, error }=useGetWord();
   const {mutate :update,   isLoading :isUpdating, error :UpdatingError }=useUpdateWord();
+  const {mutate :deleteWord ,  isLoading:isDeleting, error:DeletingError }=useDeleteWord();
   const {updateWord ,word}= useWord();
 
     useEffect(() => {
@@ -41,12 +43,12 @@ function WordDetails(){
     }, [getWord]);
 
 
-  if(error || UpdatingError) return <p>Something get Wrong {error.message}</p>
+  if(error || UpdatingError ||DeletingError) return <p>Something get Wrong {error.message}</p>
   return (
     <Page>
-      {isLoading ||isUpdating ?<Loader />
+      {isLoading ||isUpdating ||isDeleting ?<Loader />
       :<Container>
-        <WordDetailsHeader update={update}/>
+        <WordDetailsHeader update={update} deleteWord={deleteWord}/>
         <Header style={{border:"none"}}>
           <h2><Icon as={FcReading} style={{marginRight:"20px"}}/>{word?.word}</h2>
           <GiSoundWaves size={36} onClick={() => speakWord(word?.word)} />

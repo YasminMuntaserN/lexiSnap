@@ -5,16 +5,25 @@ import { FaRegEdit } from "react-icons/fa";
 import Link from "../ui/Link";
 import { Icon } from "../ui/Icon";
 import { Header } from "../styledComponents/Header";
+import { useNavigate } from "react-router-dom";
 
-function WordDetailsHeader({update}){
+function WordDetailsHeader({update ,deleteWord}){
   const {prepareWordForSave ,word ,isShowMode ,SetIsShowMode}= useWord();
   const wordForSave =prepareWordForSave();
+  const navigate = useNavigate();
 
   const handleUpdateWord = ()=>{
-    console.log(wordForSave);
     update({id: word._id ,data :wordForSave}, {
       onSuccess: () => {
         SetIsShowMode(false);
+      }
+    });
+  }
+
+  const handleDeleteWord = ()=>{
+    deleteWord(word?._id , {
+      onSuccess: () => {
+        navigate("/dashboard");
       }
     });
   }
@@ -26,7 +35,7 @@ function WordDetailsHeader({update}){
             :
             <div>
               <Icon as={FaRegEdit} style={{ fontSize: "32px", marginTop: "10px" }} onClick={()=>SetIsShowMode(true)}/>
-              <Icon as={MdDelete} style={{ fontSize: "32px", marginTop: "10px" }} onClick={()=>handleUpdateWord()}/>
+              <Icon as={MdDelete} style={{ fontSize: "32px", marginTop: "10px" }} onClick={()=>handleDeleteWord()}/>
             </div>
           }
       </Header>
