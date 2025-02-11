@@ -11,7 +11,7 @@ export const Info =styled.p`
   background:var(--linear-gradient);
   padding:10px;
   border-radius:15px;
-  height:50px;
+  min-height:50px;
   font-size:20px;
   color:white;
   width:fit-content;

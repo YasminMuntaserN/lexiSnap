@@ -1,6 +1,7 @@
 const API_URL = "https://lexisnap-server-v2.onrender.com/api/v2";
 const AUTH_TOKEN = localStorage.getItem('accessToken'); 
 
+console.log(AUTH_TOKEN);
 export async function addEntity(data ,entityName) {
     try {
         const response = await fetch(`${API_URL}/${entityName}`, {

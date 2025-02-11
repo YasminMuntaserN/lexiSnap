@@ -35,11 +35,9 @@ export function UserProvider({ children }: UserProviderProps) {
     return localStorage.getItem("accessToken") || null;
   });
 
-  const loginUser = (userData: User, token: string) => {
+  const loginUser = (userData: User) => {
     setUser(userData);
-    setAccessToken(token);
     localStorage.setItem("user", JSON.stringify(userData));
-    localStorage.setItem("accessToken", token);
     navigate("/dashboard");
   };
 
