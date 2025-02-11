@@ -8,8 +8,8 @@ import Link from "../ui/Link";
 
 
 function Extension() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [showSteps, setShowSteps] = useState(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [showSteps, setShowSteps] = useState<boolean>(false);
 
   return (
     <Page>

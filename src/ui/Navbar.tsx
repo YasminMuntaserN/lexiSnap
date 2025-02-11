@@ -9,7 +9,6 @@ import { media } from '../styledComponents/Media';
 import { useTheme } from '../context/ThemeContext';
 import { FiAlignJustify } from "react-icons/fi";
 import { useUser } from '../context/UserContext';
-import { useState } from 'react';
 import { useWord } from '../context/WordContext';
 
 const Container =styled.div `

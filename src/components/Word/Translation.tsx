@@ -19,7 +19,8 @@ function Translation() {
       {isAdd && (
       <Input 
         placeholder="Add Translation..." 
-        action={(e)=>updateWord({translations: [e.target.value.trim()]})}
+        action={(e)=>updateWord({translations: 
+          [(e.target as HTMLInputElement).value.trim()]})}
       />
       )}
     </Operation>

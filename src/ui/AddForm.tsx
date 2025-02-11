@@ -18,7 +18,14 @@ const Input=styled.textarea`
   min-height:70px;
   border-radius:12px;
 `;
-function AddForm({ onCloseParentModal ,name ,onClose}){
+
+interface AddFormProps {
+  onCloseParentModal?:()=>void;
+  name?:string;
+  onClose?:()=>void;
+}
+
+function AddForm({ onCloseParentModal ,name ,onClose}:AddFormProps){
   const [inputValue , setInputValue]=useState("");
     const {mutate,isLoading, error}=useAddTag();
     const {updateWord  ,word }=useWord();

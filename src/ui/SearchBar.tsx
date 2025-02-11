@@ -50,7 +50,7 @@ function SearchBar({ placeholder, style, type }: SearchBarProps) {
           setSearchInfo({ 
             list: data || [], 
             isLoading, 
-            error,
+            error: error ? error.message : "",
             isEmpty: !data || data.length === 0,
             isSearch: true,
             tagId: searchInfo?.tagId || "" 

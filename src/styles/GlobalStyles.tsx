@@ -31,7 +31,7 @@ const GlobalStyles = createGlobalStyle`
     --second-blue:#5194d8;
     --background-color-two:#155DA5;
     --main-color: #734973;
-    --color-gray:#AFAFDC;
+    --color-gray:#f6e4fc;
     --pure-color-white:  #ffffff;
   } 
   *{

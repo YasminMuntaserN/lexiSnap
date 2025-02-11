@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Button } from "../../styledComponents/Button";
 import { useAddTag } from "./hooks/useAddTag";
 import { useState } from "react";
-import { useWord } from "../../context/WordContext";
 
 const Container=styled.div`
 padding:30px;
@@ -17,16 +16,18 @@ const Input=styled.textarea`
   min-height:70px;
   border-radius:12px;
 `;
-function AddNewTagForm({onClose}){
+
+interface AddNewTagFormProps {
+  onClose?: () => void;
+}
+function AddNewTagForm({onClose}:AddNewTagFormProps){
   const [tag , setTag]=useState("");
   const {mutate,isLoading, error}=useAddTag();
-  const {setGetTags}=useWord();
   
   const handleAddTag=()=>{
     mutate({name:tag} ,{
       onSuccess:()=>{
         onClose();
-        setGetTags(true);
       }
     })
   }
