@@ -12,6 +12,7 @@ const GlobalStyles = createGlobalStyle`
     --pure-color-white: #ffffff;
     --second-color: #94bbe9;
     --color-border:#1b2c68a0;
+    --color-dark-gray:#63676f;
     --color-gray:#9ca3af;
     --color-box-background: #f9f9f9;
     --color-orang:#fcd34d;
@@ -32,6 +33,7 @@ const GlobalStyles = createGlobalStyle`
     --background-color-two:#155DA5;
     --main-color: #734973;
     --color-gray:#f6e4fc;
+    --color-dark-gray:#374566;
     --pure-color-white:  #ffffff;
   } 
   *{
