@@ -19,7 +19,14 @@ const Content =styled.div`
       justify-content: center; 
       text-align: center; `}
 `;
-function ExtensionPagination({currentPage, setCurrentPage ,setShowSteps}){
+
+interface ExtensionPaginationProps{
+  currentPage: number;
+  setShowSteps: (boolean)=>void;
+  setCurrentPage: (int)=>void;
+}
+
+function ExtensionPagination({currentPage, setCurrentPage ,setShowSteps}:ExtensionPaginationProps){
   const {isMobileMode}=useTheme();
   const renderContent = () => {
     switch(currentPage) {

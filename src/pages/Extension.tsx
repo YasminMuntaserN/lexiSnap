@@ -5,8 +5,6 @@ import { Button } from "../styledComponents/Button";
 import { Content } from "../ui/Content";
 import Link from "../ui/Link";
 
-
-
 function Extension() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showSteps, setShowSteps] = useState<boolean>(false);
