@@ -13,7 +13,7 @@ interface User {
 interface UserContextType {
   user: User | null;
   accessToken: string | null;
-  loginUser: (userData: User, token: string) => void;
+  loginUser: (userData: User) => void;
   logout: () => void;
 }
 

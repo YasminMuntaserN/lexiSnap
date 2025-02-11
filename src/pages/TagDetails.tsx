@@ -28,7 +28,7 @@ useEffect(()=>{
   setSearchInfo(prev => ({ ...prev, tagId: tagId }))
 },[tagId ,setSearchInfo]);
 
-if(error) return <p>there is something get wrong {error.message}</p>
+if(error) return <p>there is something get wrong { (error as Error).message}</p>
   return (
   <Page>
     <div style={{margin:"20px"}}>
