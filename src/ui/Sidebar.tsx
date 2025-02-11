@@ -77,7 +77,7 @@ function Sidebar() {
         <Icon as={IoExtensionPuzzle} />
         Our Extension
       </Box>
-      <Box onClick={() => handleNavigation('/MobileApp')}>
+      <Box onClick={() => handleNavigation('/mobileApp')}>
         <Icon as={FaMobileAlt} />
         Mobile App
       </Box>
