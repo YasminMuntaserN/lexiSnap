@@ -48,7 +48,7 @@ function Tags() {
       </Header>
       <ContentContainer>
         {isLoading && <Loader />}
-        {error && <p>something get wrong {error.message}</p>}
+        {error && <p>something get wrong { (error as Error).message}</p>}
         <TagsContainer >
         {Tags?.map((tag, index) => (
         <Tag key={index} tag={tag}/>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Page from "../ui/Page";
 import { BiSave } from "react-icons/bi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WordOperations from "../components/Word/WordOperations";
 import { Icon } from "../ui/Icon";
 import { media } from "../styledComponents/Media";
@@ -32,7 +32,7 @@ function AddNewWord() {
   const navigate= useNavigate();
   const [inputValue, setInputValue] = useState("");
   const { mutate , isLoading, error }=useAddWord();
-  const {updateWord ,prepareWordForSave }= useWord();
+  const {updateWord ,prepareWordForSave ,SetIsShowMode }= useWord();
   const wordForSave =prepareWordForSave();
 
   const handleAddWord =()=>mutate(wordForSave,
@@ -41,11 +41,18 @@ function AddNewWord() {
     navigate("/dashboard");
     updateWord({word:""});
   }});
+  
+  useEffect(()=>{
+  if(inputValue.length > 0)
+    SetIsShowMode(true);
+  else
+  SetIsShowMode(false);
+} ,[SetIsShowMode ,inputValue]);
 
   if(error) return <p>Something get Wrong {error.message}</p>
   return (
     <Page>
-      <Link to="dashboard" />
+      <Link to="dashboard" onClick={()=>SetIsShowMode(false)}/>
       {isLoading ?<Loader />
       :<Container>
         <div style={{ display: "flex", gap: "70px" }}>

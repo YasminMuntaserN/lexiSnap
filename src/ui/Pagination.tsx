@@ -24,7 +24,6 @@ const PageIndicator = styled.span`
   color: var(--background-color);
   ${media.mobile`margin-top:30px`}
 `;
-
 interface PaginationProps {
   setCurrentPage: (page: number) => void;
   currentPage: number;
@@ -35,16 +34,16 @@ function Pagination({ setCurrentPage, currentPage, setShowSteps }: PaginationPro
   const totalPages = 6;
 
   const nextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages+1));
+    setCurrentPage(Math.min(currentPage + 1, totalPages)); 
   };
 
   const prevPage = () => {
-    setCurrentPage((prev) => Math.max(prev - 1, 0));
+    setCurrentPage(Math.max(currentPage - 1, 1)); 
   };
 
   useEffect(() => {
     if (currentPage > totalPages || currentPage === 0){ 
-      setShowSteps(pre=>!pre);
+      setShowSteps(true);
       setCurrentPage(1);
     }
   }, [setCurrentPage,currentPage, setShowSteps, totalPages]);
