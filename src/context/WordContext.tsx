@@ -25,13 +25,14 @@ interface Word {
 type PartialWord = Pick<Word, "word" | "_id">;
 
 interface SearchInfo {
-  list;
+  list: object[]; 
   isLoading: boolean;
-  error;
+  error: string | null;
   isEmpty: boolean;
   isSearch: boolean;
-  tagId:string;
+  tagId: string;
 }
+
 
 
 interface WordContextType {
@@ -54,7 +55,7 @@ interface WordContextType {
     setWordsTotalPages: React.Dispatch<React.SetStateAction<number>>;
     TagsTotalPages: number;
     setTagsTotalPages: React.Dispatch<React.SetStateAction<number>>;
-    searchInfo:object;
+    searchInfo:SearchInfo;
     setSearchInfo:React.Dispatch<React.SetStateAction<SearchInfo>>;
     searchTagId: string;
     setSearchTagId: React.Dispatch<React.SetStateAction<string>>;

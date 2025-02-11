@@ -25,7 +25,7 @@ export const signInWithGoogle = async () => {
 
     return data;
   } catch (error) {
-    console.error("Google Sign-In Error:", error?.message);
+    console.error("Google Sign-In Error:", (error as Error).message);
     return null;
   }
 };

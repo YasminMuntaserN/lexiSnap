@@ -13,7 +13,7 @@ import SearchBar from "../../ui/SearchBar";
 const Text = styled.div<{ added: boolean }>`
   display: flex;
   justify-content: space-between;
-  background-color: ${({ added }) => (added ? "#4c4c56" : "#ececf3")};
+  background-color: ${({ added }) => (added ? "var(--color-gray)" : "#ececf3")};
   padding: 10px;
   font-size: 18px;
   padding-left: 50px;
@@ -23,7 +23,7 @@ const Text = styled.div<{ added: boolean }>`
   pointer-events: ${({ added }) => (added ? "none" : "auto")};
 
   &:hover {
-    background-color:#4c4c56;
+    background-color:var(--color-gray);
     color: var(--main-color);
   }
 `;

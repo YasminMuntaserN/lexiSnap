@@ -18,8 +18,8 @@ function Definitions() {
       {isShowMode && <Icon as={RiAddLine} onClick={() => setIsAdd((prev) => !prev)} />}
       {isAdd && (
         <Input 
-          placeholder="Write a definitions here.."
-          action={(e)=>updateWord({definitions: [e.target.value.trim()]})}
+          placeholder="Write a definition here..."
+          onChange={(e) => updateWord({ definitions: [(e.target as HTMLInputElement).value.trim()] })}
         />
       )}
     </Operation>

@@ -26,10 +26,10 @@ export function useGetWord(){
 
 
 export function useUpdateWord() {
-  const { mutate, data, status, error } = useMutation({
+  const { mutate, data, status, error } = useMutation<{ data }, Error, { id: string; data }>({
     mutationFn: ({ id, data }) => updateWord(id, data), 
     mutationKey: ["updateWord"],
   });
 
-  return { mutate, updatedWord: data, isLoading: status === "pending", error };
+  return { mutate, updatedWord: data?.data, isLoading: status === "pending", error };
 }

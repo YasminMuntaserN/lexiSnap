@@ -9,7 +9,7 @@ function Dashboard() {
     const { wordList, isLoading, error  } = useWordList();
     const {searchInfo}=useWord();
 
-    if (error) return <p>Something went wrong: {error.message}</p>;
+    if (error) return <p>Something went wrong: {(error as Error).message}</p>;
 
 return (
     <Page>
