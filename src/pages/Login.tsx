@@ -25,7 +25,7 @@ function Login() {
       <Background>
         <Container>
           <Logo />
-          {error && <p>there is problem with loging </p>}
+          {error && <p>there is problem with logging </p>}
           <Button variant="full" onClick={() => GoogleLogin()}>
             <FcGoogle style={{marginRight: '20px', fontSize: '23px' }} />
             {isLoading ? "Signing in..." : "Continue with Google"}

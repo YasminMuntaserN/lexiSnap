@@ -9,7 +9,7 @@ const Container = styled.div<{size:string}>`
   padding: 20px;
   margin: 10px;
   gap: 15px;
-  height: ${({ size }) => (size ? "450px" : "350px")};
+  height: ${({ size }) => (size ? "400px" : "300px")};
   width:${({ size }) => (size ? "950px" : "")};
 `;
 

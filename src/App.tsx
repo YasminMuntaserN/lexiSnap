@@ -14,6 +14,8 @@ import TagDetails from "./pages/TagDetails.tsx";
 import WordDetails from "./pages/WordDetails.tsx";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ProtectedRoute from "./ui/ProtectedRoute.tsx";
+import PageNotFound from "./pages/PageNotFound.tsx";
+import MobileApp from "./pages/MobileApp.tsx";
 
 function App() {
   const queryClient = new QueryClient();
@@ -35,11 +37,12 @@ function App() {
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/important" element={<Important />} />
                   <Route path="/addNewWord" element={<AddNewWord />} />
+                  <Route path="/mobileApp" element={<MobileApp />} />
                   <Route path="/tags" element={<Tags />} />
                   <Route path="/tags/:tagId" element={<TagDetails />} /> 
                 </Route>
 
-                {/* <Route path="*" element={<PageNotFound />} /> */}
+                <Route path="*" element={<PageNotFound />} />
               </Routes>
             </UserProvider>
           </WordProvider>

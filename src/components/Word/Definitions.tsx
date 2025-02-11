@@ -8,6 +8,7 @@ import { useWord } from "../../context/WordContext";
 import { InfoBox  ,Info} from "../../styledComponents/InfoBox";
 
 function Definitions() {
+  const [inputValue ,setInputValue]=useState("");
   const [isAdd, setIsAdd] = useState(false);
   const {updateWord ,word ,isShowMode}= useWord();
 
@@ -19,7 +20,8 @@ function Definitions() {
       {isAdd && (
         <Input 
           placeholder="Write a definition here..."
-          onChange={(e) => updateWord({ definitions: [(e.target as HTMLInputElement).value.trim()] })}
+          onChange={(e) =>setInputValue((e.target as HTMLInputElement).value.trim())}
+          action={()=>inputValue.length > 0 && updateWord({ definitions:  [inputValue]})}
         />
       )}
     </Operation>

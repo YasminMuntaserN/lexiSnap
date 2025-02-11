@@ -2,13 +2,14 @@ import { createGlobalStyle } from "styled-components";
 import { media } from "../styledComponents/Media";
 
 const GlobalStyles = createGlobalStyle`
-   :root {
+  :root {
     --main-color:#a182a1;
     --background-color:#0d1224;
     --basic-background-color:#0d1224;
     --background-color-two: #1a1443;
     --color-background-gray:linear-gradient(50deg,#c9def3 0%, #c6deee 10%,  #e6dae5 40% ,#ecd9ee 60% );
     --color-white: #ffffff;
+    --modal-background: #ffffff
     --pure-color-white: #ffffff;
     --second-color: #94bbe9;
     --color-border:#1b2c68a0;
@@ -28,6 +29,7 @@ const GlobalStyles = createGlobalStyle`
   &.light-mode{
     --background-color: #c8c5c5;
     --basic-background-color:#F2E3E3;
+    --modal-background: #282e3a;
     --color-white:#0d1224;
     --second-blue:#5194d8;
     --background-color-two:#155DA5;

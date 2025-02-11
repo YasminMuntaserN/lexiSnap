@@ -9,6 +9,7 @@ import { Info, InfoBox } from "../../styledComponents/InfoBox";
 
 function Translation() {
   const [isAdd, setIsAdd] = useState(false);
+  const [inputValue ,setInputValue]=useState("");
   
   const {updateWord ,word ,isShowMode}= useWord();
   return (
@@ -19,8 +20,8 @@ function Translation() {
       {isAdd && (
       <Input 
         placeholder="Add Translation..." 
-        action={(e)=>updateWord({translations: 
-          [(e.target as HTMLInputElement).value.trim()]})}
+        onChange={(e) =>setInputValue((e.target as HTMLInputElement).value.trim())}
+        action={()=>inputValue.length > 0 && updateWord({ translations:  [inputValue]})}
       />
       )}
     </Operation>

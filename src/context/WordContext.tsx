@@ -156,7 +156,7 @@ export function WordProvider({ children }: WordProviderProps) {
       }));
     }
   }
-  
+  console.log(word);
 
   function prepareWordForSave() {
     const wordToSave = { 
