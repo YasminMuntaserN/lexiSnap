@@ -4,6 +4,7 @@ import Pagination from "../../ui/Pagination";
 import styled from "styled-components";
 import { media } from "../../styledComponents/Media";
 import { useTheme } from "../../context/ThemeContext";
+import Link from "../../ui/Link";
 
 const Content =styled.div`
   display: flex;
@@ -95,6 +96,7 @@ function ExtensionPagination({currentPage, setCurrentPage ,setShowSteps}:Extensi
   }
   return (
     <>
+    <Link to="dashboard"/>
     {renderContent()}
     <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} setShowSteps={setShowSteps}/>
     </>

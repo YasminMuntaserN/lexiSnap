@@ -57,7 +57,7 @@ const Icon = styled.div`
 `;
 
 function Sidebar() {
-  const{isMobileMode ,DisplayMenu, setDisplayMenu}=useTheme();
+  const{isMobileMode ,displayMenu, setDisplayMenu}=useTheme();
   const navigate = useNavigate();
 
   const handleNavigation = (path: string) => {
@@ -67,7 +67,7 @@ function Sidebar() {
 
   return (
     <>
-    {!(isMobileMode && DisplayMenu) &&
+    {!(isMobileMode && displayMenu) &&
     (<Container>
       <Box onClick={() => handleNavigation('/tags')}>
         <Icon as={FaHashtag} />

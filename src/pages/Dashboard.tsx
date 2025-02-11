@@ -24,7 +24,7 @@ return (
     (wordList?.length > 0 && <AllWords words={wordList} />)
     }
 
-    {!wordList?.length && <StarterSection />}
+    {(!wordList?.length && !isLoading ) && <StarterSection />}
     </Page>
 );
 }
