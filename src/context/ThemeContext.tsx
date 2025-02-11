@@ -16,10 +16,10 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
+  // Load theme preference from localStorage OR system preference
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-      //Through this line, it will be determined whether the user has activated dark mode or not, and accordingly the default value will be
     const storedTheme = localStorage.getItem("isDarkMode");
-    if (storedTheme !== null) return storedTheme === "true"; 
+    if (storedTheme !== null) return storedTheme === "true"; // Convert string to boolean
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
 

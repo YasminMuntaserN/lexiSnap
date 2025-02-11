@@ -21,11 +21,11 @@ export const signInWithGoogle = async () => {
     
     const data = await response.json(); 
     
-    localStorage.setItem("accessToken", data.accessToken);
+    localStorage.setItem("accessToken", data?.accessToken);
 
     return data;
   } catch (error) {
-    console.error("Google Sign-In Error:", error.message);
+    console.error("Google Sign-In Error:", error?.message);
     return null;
   }
 };
