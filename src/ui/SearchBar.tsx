@@ -4,6 +4,7 @@ import { media } from "../styledComponents/Media";
 import { useSearch } from "../components/Word/hooks/useSearch";
 import { useWord } from "../context/WordContext";
 import { useEffect, useState } from "react";
+import { useDebounce } from "../hooks/useDebounce";
 
 const Input = styled.input`
   border-radius: 1.5rem; 
@@ -25,6 +26,7 @@ interface SearchBarProps {
 function SearchBar({ placeholder, style, type }: SearchBarProps) {
   const [inputValue, setInputValue] = useState("");
   const { mutate, isLoading, error } = useSearch();
+  const debouncedValue=  useDebounce(inputValue , 500);
   const { WordsPage, TagsPage, setSearchInfo, searchInfo } = useWord();
 
   const handleSearch = () => {
@@ -37,47 +39,49 @@ function SearchBar({ placeholder, style, type }: SearchBarProps) {
       tagId: searchInfo?.tagId || "" 
     });
 
-    if (inputValue.length < 2) return;
+    if (debouncedValue.length < 2) return; 
 
     mutate(
-      { 
-        query: inputValue, 
+      {
+        query: debouncedValue,
         page: type === "tags" ? TagsPage : WordsPage,
-        tag: searchInfo?.tagId
-      }, 
+        tag: searchInfo?.tagId,
+      },
       {
         onSuccess: (data) => {
-          setSearchInfo({ 
-            list: data || [], 
-            isLoading, 
+          setSearchInfo({
+            list: data || [],
+            isLoading,
             error: error ? error.message : "",
             isEmpty: !data || data.length === 0,
             isSearch: true,
-            tagId: searchInfo?.tagId || "" 
+            tagId: searchInfo?.tagId || "",
           });
-        }
+        },
       }
     );
   };
 
   useEffect(() => {
-    if (inputValue.length === 0) {
-      setSearchInfo(prev => ({ 
+    if (debouncedValue.length === 0) {
+      setSearchInfo((prev) => ({
         ...prev,
-        list: [], 
-        isLoading: false, 
-        error: null, 
-        isEmpty: true, 
+        list: [],
+        isLoading: false,
+        error: null,
+        isEmpty: true,
         isSearch: false,
-        tagId: prev.tagId 
+        tagId: prev.tagId,
       }));
     } else {
-      setSearchInfo(prev => ({ 
-        ...prev, 
-        isSearch: true 
+      setSearchInfo((prev) => ({
+        ...prev,
+        isSearch: true,
       }));
     }
-  }, [inputValue, setSearchInfo]);
+
+    handleSearch(); 
+  }, [debouncedValue]); 
 
   return (
     <div style={{ position: "relative" }}>
@@ -85,22 +89,16 @@ function SearchBar({ placeholder, style, type }: SearchBarProps) {
         placeholder={placeholder}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            handleSearch();
-          }
-        }}
         type="text"
         style={style}
       />
-      <FaSearch 
-        style={{ 
-          position: "absolute", 
-          right: `${style ? "50px" : "20px"}`, 
-          top: "5px", 
-          fontSize: "27px" 
-        }} 
+      <FaSearch
+        style={{
+          position: "absolute",
+          right: `${style ? "50px" : "20px"}`,
+          top: "5px",
+          fontSize: "27px",
+        }}
       />
     </div>
   );

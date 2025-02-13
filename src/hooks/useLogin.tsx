@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { signInWithGoogle } from "../../../services/GoogleLogin";
-import { useUser } from "../../../context/UserContext";
+import { signInWithGoogle } from "../services/GoogleLogin";
+import { useUser } from "../context/UserContext";
 
 export function useLogin(){
   const {loginUser} =useUser();
