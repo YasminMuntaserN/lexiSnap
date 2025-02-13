@@ -4,7 +4,7 @@ import { Button } from "../styledComponents/Button";
 import { FcGoogle } from "react-icons/fc";
 import ThemeToggle from "../ui/ThemeToggle";
 import Logo from "../ui/Logo";
-import { useLogin } from "../components/GoogleLogin/hooks/useLogin";
+import { useLogin } from "../hooks/useLogin";
 
 const Container = styled.div`
   display: flex;
