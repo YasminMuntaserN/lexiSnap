@@ -8,6 +8,7 @@ import WordsList from "../Word/WordsList";
 import { Button } from "../../styledComponents/Button";
 import { HiArrowLeftCircle } from "react-icons/hi2";
 import {Loader} from "../../ui/Loader";
+import { media } from "../../styledComponents/Media";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,6 +17,16 @@ const Container = styled.div`
   padding: 20px;
   margin: 10px;
   gap: 15px;
+  ${media.mobile`
+    margin:0;
+    height: 300px;
+    width:100%;
+    `}
+${media.tablet`
+  margin:0;
+  height: 300px;
+  width:100%;
+    `}
 `;
 
 const Text = styled.div<{ added: boolean }>`
@@ -34,7 +45,25 @@ const Text = styled.div<{ added: boolean }>`
     background-color:var(--color-dark-gray);
     color: var(--main-color);
   }
+  ${media.mobile`
+    padding-left:5px;
+    font-size: 14px;
+    `}
+${media.tablet`
+  padding-left:15px;
+  font-size: 16px;
+    `}
 `;
+
+const H2 =styled.h2`
+  ${media.mobile`
+    font-size: 16px;
+    `}
+${media.tablet`
+  font-size: 16px;
+    `}
+`;
+
 interface TagsListProps {
   showTagsList: boolean;
   type: string;
@@ -102,7 +131,7 @@ function TagsList({ showTagsList, type, setShowTagsList }: TagsListProps) {
             <HiArrowLeftCircle />
           </Button>
         )}
-        <h2>All Tags You Added:</h2>
+        <H2>All Tags You Added:</H2>
       </div>
       {Tags?.map((tag, index) => (
         <Text

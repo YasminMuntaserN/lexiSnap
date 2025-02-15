@@ -8,6 +8,7 @@ import Link from "../ui/Link";
 import {Loader} from "../ui/Loader";
 import { useWord } from "../context/WordContext";
 import { useWordList } from "../components/Word/hooks/useWordList";
+import { media } from "../styledComponents/Media";
 
 const Header= styled.div`
   font-size:32px;
@@ -18,7 +19,22 @@ const Header= styled.div`
   font-weight:600;
   display:flex;
   gap:100px;
+    ${media.mobile`
+      font-size: 16px;
+      `}
+  ${media.tablet`
+    font-size: 18px;
+      `}
 `;
+const Container =styled.div`
+margin :20px;
+${media.mobile`
+  margin :0;
+    `}
+${media.tablet`
+  margin :0;
+    `}
+`
 function TagDetails (){
   const { tagId  } = useParams(); 
 const { wordList, isLoading, error ,Tag} = useWordList();
@@ -31,7 +47,7 @@ useEffect(()=>{
 if(error) return <p>there is something get wrong { (error as Error).message}</p>
   return (
   <Page>
-    <div style={{margin:"20px"}}>
+    <Container>
         <Header>
             <Link to="tags"/>
             <p> <FaHashtag style={{marginRight:"20px" }} /> {Tag?.name} </p>
@@ -40,7 +56,7 @@ if(error) return <p>there is something get wrong { (error as Error).message}</p>
         {isLoading && <Loader />}
           <AllWords words ={wordList}/>
         </div>
-    </div>
+    </Container>
   </Page>
   )
 }

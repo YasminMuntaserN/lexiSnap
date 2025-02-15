@@ -13,9 +13,18 @@ import { FcReading } from "react-icons/fc";
 import WordDetailsHeader from "./WordDetailsHeader";
 import { Header } from "../styledComponents/Header";
 import { useDeleteWord } from "../components/Word/hooks/useAddWord";
+import { media } from "../styledComponents/Media";
 
 
-const Container = styled.div`padding-left:80px;`;
+const Container = styled.div`
+padding-left:80px;
+${media.mobile`
+  padding-left:0;
+    `}
+${media.tablet`
+  padding-left:0;
+    `}
+`;
 
 function WordDetails(){
   const {wordId}=useParams();

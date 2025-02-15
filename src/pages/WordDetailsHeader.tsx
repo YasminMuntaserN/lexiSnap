@@ -6,7 +6,18 @@ import Link from "../ui/Link";
 import { Icon } from "../ui/Icon";
 import { Header } from "../styledComponents/Header";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { media } from "../styledComponents/Media";
 
+
+const H1 =styled.h1`
+  ${media.tablet`
+    font-size:16px;
+  `}
+  ${media.mobile`
+    font-size:16px;
+  `}
+`
 function WordDetailsHeader({update ,deleteWord}){
   const {prepareWordForSave ,word ,isShowMode ,SetIsShowMode}= useWord();
   const wordForSave =prepareWordForSave();
@@ -30,12 +41,12 @@ function WordDetailsHeader({update ,deleteWord}){
   return (
       <Header>
           <Link to="dashboard" onClick={()=>SetIsShowMode(false)}/>
-          <h1>{isShowMode ? "Enrich the word" : "Word Details"}</h1>
-          {isShowMode ?<Icon as={BiSave} style={{ fontSize: "32px", marginTop: "10px" }} onClick={()=>handleUpdateWord()}/>
+          <H1>{isShowMode ? "Enrich the word" : "Word Details"}</H1>
+          {isShowMode ?<Icon as={BiSave} onClick={()=>handleUpdateWord()}/>
             :
-            <div>
-              <Icon as={FaRegEdit} style={{ fontSize: "32px", marginTop: "10px" }} onClick={()=>SetIsShowMode(true)}/>
-              <Icon as={MdDelete} style={{ fontSize: "32px", marginTop: "10px" }} onClick={()=>handleDeleteWord()}/>
+            <div style={{display:"flex"}}>
+              <Icon as={FaRegEdit} onClick={()=>SetIsShowMode(true)}/>
+              <Icon as={MdDelete} onClick={()=>handleDeleteWord()}/>
             </div>
           }
       </Header>

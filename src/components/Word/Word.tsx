@@ -3,6 +3,7 @@ import { GiSoundWaves } from "react-icons/gi";
 import { speakWord } from "../../services/Speech";
 import { Line } from "../../ui/Line";
 import { useNavigate } from "react-router-dom";
+import { media } from "../../styledComponents/Media";
 
 const Container = styled.div`
   display: flex;
@@ -20,6 +21,15 @@ const SubContainer = styled.div`
   align-items: center;
   gap: 20px;
   font-size: 20px;
+  ${media.mobile`
+    font-size: 16px;
+    grid-template-columns: 1fr 1fr 0.2fr; 
+  `}
+
+  ${media.tablet`
+    font-size: 16px;
+    grid-template-columns: 1fr 1fr 0.2fr; 
+    `}
 `;
 
 const WordText = styled.p`
@@ -36,6 +46,14 @@ const IconWrapper = styled.div`
   justify-content: center;
   cursor: pointer;
   color: var(--second-blue);
+  font-size:36px;
+  ${media.mobile`
+    font-size: 18px;
+    `}
+  
+    ${media.tablet`
+      font-size: 18px;
+      `}
 `;
 
 function Word({ word }) {
@@ -48,10 +66,10 @@ function Word({ word }) {
           <WordText>{word.word}</WordText>
           <TranslationText>{word.firstTranslation}</TranslationText>
           <IconWrapper>
-            <GiSoundWaves size={36} onClick={() => speakWord(word.word)} />
+            <GiSoundWaves onClick={() => speakWord(word.word)} />
           </IconWrapper>
         </SubContainer>
-        <div style={{ fontSize: "16px", marginTop: "5px" }}>
+        <div style={{marginTop: "5px" }}>
           {word.firstStatement}
         </div>
       </div>

@@ -6,6 +6,7 @@ import { useGetTags } from "../components/Tags/hooks/useGetTags";
 import { useEffect } from "react";
 import Link from "../ui/Link";
 import {Loader} from "../ui/Loader";
+import { media } from "../styledComponents/Media";
 
 
 const ContentContainer =styled.div`
@@ -16,6 +17,10 @@ gap:100px;
 padding:20px;
 width:90%;
 margin:50px;
+  ${media.mobile`
+    padding:0px;
+    margin:0px;
+    `}
 `;
 const TagsContainer =styled.div`
 display: flex;
@@ -34,12 +39,21 @@ const Header= styled.div`
   font-weight:600;
   display:flex;
   gap:100px;
+  ${media.mobile`
+    font-size: 16px;
+    `}
+${media.tablet`
+  font-size: 22px;
+    `}
 `;
 
 function Tags() {
   const{ mutate , Tags,  isLoading, error}= useGetTags();
   
-  useEffect(()=>mutate ,[mutate]);
+  useEffect(() => {
+    mutate();
+  }, [mutate]);
+  
   return (
     <Page>
       <Header>
@@ -49,11 +63,13 @@ function Tags() {
       <ContentContainer>
         {isLoading && <Loader />}
         {error && <p>something get wrong { (error as Error).message}</p>}
-        <TagsContainer >
-        {Tags?.map((tag, index) => (
-        <Tag key={index} tag={tag}/>
-        ))}
-        </TagsContainer>
+        <TagsContainer>
+            {Tags?.length > 0 ? (
+              Tags.map((tag, index) => <Tag key={index} tag={tag} />)
+            ) : (
+              <p>No tags found.</p>
+            )}
+          </TagsContainer>
         <AddNewTag />
       </ContentContainer>
     </Page>

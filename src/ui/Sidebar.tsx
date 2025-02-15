@@ -14,7 +14,9 @@ const Container = styled.div`
   border: 2px solid var(--color-gray); 
   border-radius: 30px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
-
+  ${media.largeTablet`
+    height:80vh ;
+  `}
 `;
 
 const Box = styled.div`
