@@ -17,6 +17,21 @@ const Container = styled.div`
   ${media.largeTablet`
     height:80vh ;
   `}
+
+  ${media.mobile`
+    border: none; 
+    box-shadow: none; 
+    box-shadow: 0 4px 6px rgba(219, 202, 202, 0.5); 
+    border-radius: 5px;
+  `}
+
+  ${media.tablet`
+    border: none; 
+    box-shadow: none;
+    box-shadow: 0 4px 6px rgba(219, 202, 202, 0.5); 
+    border-radius: 5px;
+    `}
+
 `;
 
 const Box = styled.div`
@@ -42,12 +57,14 @@ const Box = styled.div`
     display: grid;
   justify-content: space-between;
   grid-template-columns: 1fr 1fr ;
+  font-size: 14px;
   `}
 
   ${media.tablet`
     display: grid;
   justify-content: space-between;
   grid-template-columns: 1fr 1fr ;
+  font-size: 16px;
     `}
 
 `;
