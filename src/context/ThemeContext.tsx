@@ -19,7 +19,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   // Load theme preference from localStorage OR system preference
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     const storedTheme = localStorage.getItem("isDarkMode");
-    if (storedTheme !== null) return storedTheme === "true"; // Convert string to boolean
+    if (storedTheme !== null) return storedTheme === "true"; 
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
 
