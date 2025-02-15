@@ -1,50 +1,48 @@
-# React + TypeScript + Vite
+# 🌐 LexiSnap Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview  
+The **LexiSnap Web** platform is the ultimate online vocabulary-building tool, designed to work seamlessly with the **LexiSnap** mobile app. Whether you're reading articles, watching videos, or browsing the web, LexiSnap lets you snap and save new words instantly using our **Google Chrome extension**.  
+With an intuitive UI, automatic **dark/light mode**, and seamless syncing across devices, LexiSnap makes language learning effortless.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Key Features  
 
-## Expanding the ESLint configuration
+### **Snap & Save with Chrome Extension**  
+- Highlight any word on a webpage and save it instantly to your **LexiSnap** vocabulary list.  
+- Automatically fetch **definitions, translations, and synonyms** for better understanding.  
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### **Organize & Customize Your Vocabulary**  
 
-- Configure the top-level `parserOptions` property like this:
+### **Interactive Learning Tools**  
+- **Search & Navigate:** Quickly find words and view related statements & subtitles.  
+- **Pronunciation Guides:** Listen to audio pronunciations for better retention.  
+- **Add Context:** Save example statements and subtitles for each word.  
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### **Seamless User Experience**  
+- **Automatic Dark/Light Mode** – Adapts to your browser’s theme.  
+- **Cross-Device Syncing** – Access your saved vocabulary anytime, anywhere.  
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 🔧 Built With  
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+| Technology         | Purpose |
+|--------------------|---------|
+| **React 18**      | Frontend UI framework |
+| **Firebase**      | Authentication & real-time database |
+| **React Router**  | Smooth navigation between pages |
+| **Styled-Components** | Custom theme-based styling |
+| **TanStack React Query** | Efficient API data fetching & caching |
+
+---
+
+## 📸 Screenshots  
+
+| Light Mode | Dark Mode |
+|------------|----------|
+| ![Light Mode](https://imgur.com/LRfZF7W.jpg) | ![Dark Mode](https://imgur.com/fKDSxKM.jpg) |
+| ![Light Mode](https://imgur.com/KXEnbL2.jpg) | ![Dark Mode](https://imgur.com/EYXFKJi.jpg) |
+
+
+
