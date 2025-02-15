@@ -20,8 +20,10 @@ justify-content:space-between;
 font-family: "Noto Serif Todhri", serif;
 font-size:21px;
 margin-left:20px;
-${media.mobile`flex-direction:column; margin-left:0px;`}
-${media.tablet`flex-direction:column;`}
+${media.mobile`flex-direction:column; margin-left:0px;
+font-size:16px;
+`}
+${media.tablet`flex-direction:column;font-size:18px;`}
 `;
 const SubContainer =styled.div`
 display:flex;
@@ -43,7 +45,7 @@ const Icon =styled.div`
   transition: all 0.2s ease; 
   padding:5px;
 }
-${media.mobile` font-size:25px;`}
+${media.mobile` font-size:23px;`}
 ${media.tablet` font-size:27px;`}
 `;
 const MainContainer =styled.div`
@@ -69,10 +71,11 @@ function Navbar(){
   const {user ,logout}=useUser();
   return (
     <Container>
-      <div style={{display:'flex' , gap:'30px'}}>
+      <div style={{display:'flex' , gap:'30px' ,marginBottom:"10px"}}>
       <ThemeToggle />
-      <SearchBar placeholder="Search for a Word..."/>
+      {user && <SearchBar placeholder="Search for a Word..."/>}
       </div>
+      {user && 
         <MainContainer>
         {(isMobileMode) &&(<FiAlignJustify style={{fontSize:'35px'}} onClick={()=>setDisplayMenu(pre=>!pre)} />)
         }  
@@ -86,6 +89,7 @@ function Navbar(){
           <Icon as={RiLogoutCircleRLine} onClick={()=>logout()} />
         </div>
         </MainContainer>
+        }       
     </Container>
   )
 

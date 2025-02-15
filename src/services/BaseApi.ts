@@ -1,8 +1,7 @@
 const API_URL = "https://lexisnap-server-v2.onrender.com/api/v2";
-const AUTH_TOKEN = localStorage.getItem('accessToken'); 
 
-console.log(AUTH_TOKEN);
 export async function addEntity(data ,entityName) {
+const AUTH_TOKEN = localStorage.getItem('accessToken'); 
     try {
         const response = await fetch(`${API_URL}/${entityName}`, {
             method: "POST",
@@ -34,6 +33,7 @@ export async function addEntity(data ,entityName) {
 }
 
 export async function getEntities(entityName) {
+    const AUTH_TOKEN = localStorage.getItem('accessToken'); 
 try {
     const res = await fetch(`${API_URL}/${entityName}`, {
         method: "GET",
@@ -58,6 +58,7 @@ try {
 }
 
 export async function getEntity(entityName) {
+    const AUTH_TOKEN = localStorage.getItem('accessToken'); 
 try {
     const res = await fetch(`${API_URL}/${entityName}`, {
         method: "GET",
@@ -83,6 +84,7 @@ try {
 }
 
 export async function updateEntity(entityName ,data) {
+    const AUTH_TOKEN = localStorage.getItem('accessToken'); 
 try {
     const res = await fetch(`${API_URL}/${entityName}`, {
         method: "PUT",
@@ -108,6 +110,7 @@ try {
 }
 
 export async function search(query ,page ,tag) {
+    const AUTH_TOKEN = localStorage.getItem('accessToken'); 
 try {
     const url =tag === "" ?
         `${API_URL}/search?query=${query}&page=${page}` :
@@ -135,6 +138,7 @@ try {
 }
 
 export async function deleteEntity(entityName) {
+    const AUTH_TOKEN = localStorage.getItem('accessToken'); 
 try {
     const res = await fetch(`${API_URL}/${entityName}`, {
         method: "DELETE",

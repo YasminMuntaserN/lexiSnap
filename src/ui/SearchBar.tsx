@@ -16,6 +16,9 @@ const Input = styled.input`
     ${media.mobile`
       width: 200px; 
     `}
+    ${media.tablet`
+      width: 300px; 
+    `}
 `;
 interface SearchBarProps {
   placeholder: string;

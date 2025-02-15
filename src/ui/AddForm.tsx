@@ -3,9 +3,16 @@ import { Button } from "../styledComponents/Button";
 import { useState } from "react";
 import { useAddTag } from "../components/Tags/hooks/useAddTag";
 import { useWord } from "../context/WordContext";
+import { media } from "../styledComponents/Media";
 
 const Container=styled.div`
 padding:30px;
+${media.mobile`
+  padding:10px;
+    `}
+${media.tablet`
+  padding:10px;
+    `}
 `;
 
 const Input=styled.textarea`
@@ -17,6 +24,14 @@ const Input=styled.textarea`
   outline:none;
   min-height:70px;
   border-radius:12px;
+  ${media.mobile`
+    width:250px;
+    padding:0;
+    `}
+${media.tablet`
+  width:300px;
+    padding:0;
+    `}
 `;
 
 interface AddFormProps {

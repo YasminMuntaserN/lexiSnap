@@ -39,8 +39,8 @@ height:90%;
 const ContentContainer = styled.div`
 height: 100%;
 padding: 30px;
-  ${media.mobile`padding: 10px;`}
-  ${media.tablet`padding: 10px;`}
+  ${media.mobile`padding: 0px;`}
+  ${media.tablet`padding: 0px;`}
 `;
 
 function Page({ children }) {

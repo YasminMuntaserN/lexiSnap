@@ -1,17 +1,37 @@
 import { ReactNode, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useWord } from "../context/WordContext";
+import { media } from "../styledComponents/Media";
 
-const Container = styled.div<{size:string}>`
+const Container = styled.div<{ size?: string }>`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   padding: 20px;
   margin: 10px;
   gap: 15px;
-  height: ${({ size }) => (size ? "400px" : "300px")};
-  width:${({ size }) => (size ? "950px" : "")};
+  height: ${({ size }) => (size ? "450px" : "300px")};
+  width: ${({ size }) => (size ? "950px" : "auto")};
+
+  @media (min-width: 320px) and (max-width: 480px) {
+    height: ${({ size }) => (size ? "65vh" : "40vh")};
+    width: ${({ size }) => (size ? "100%" : "auto")};
+    margin: 0;
+  }
+
+  @media (min-width: 481px) and (max-width: 991px) {
+    height: ${({ size }) => (size ? "72vh" : "40vh")};
+    width: ${({ size }) => (size ? "100%" : "auto")};
+    margin: 0;
+  }
+
+  ${media.largeTablet`
+    height: 70vh;
+    width: 100%;
+    margin: 0;
+  `};
 `;
+
 
 const PaginationContainer = styled.div`
   display: flex;

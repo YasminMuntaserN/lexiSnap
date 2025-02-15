@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../styledComponents/Media";
 
 export const Icon=styled.div`
   color:var(--background-color-two);
@@ -9,4 +10,10 @@ export const Icon=styled.div`
   &:focus {
   color: var(--main-color); 
 }
+${media.mobile`
+  font-size:20px;
+  `}
+  ${media.tablet`
+    font-size:22px;
+  `}
 `;

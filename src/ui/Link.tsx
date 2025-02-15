@@ -4,17 +4,19 @@ import { HiArrowLeft } from "react-icons/hi2";
 import { useWord } from "../context/WordContext";
 
 interface LinkProps {
-  to: string; 
-  style?: object; 
-  onClick?: ()=>void; 
+  to: string;
+  style?: object;
+  onClick?: () => void;
+  children?: React.ReactNode;
 }
 
-function Link({to ,style ,onClick}:LinkProps){
-  const{setSearchTagId ,setWordsPage,setTagsPage,setSearchInfo}=useWord();
-  
-  const handleOnClick =()=>{
+function Link({ to, style, onClick, children = "Back" }: LinkProps) { 
+  const { setSearchTagId, setWordsPage, setTagsPage, setSearchInfo } = useWord();
+  const navigate = useNavigate();
+
+  const handleOnClick = () => {
     navigate(`/${to}`);
-    if(onClick) onClick();
+    if (onClick) onClick();
     setSearchTagId("");
     setWordsPage(1);
     setTagsPage(1);
@@ -24,14 +26,16 @@ function Link({to ,style ,onClick}:LinkProps){
       error: null,
       isEmpty: true,
       isSearch: false,
-      tagId:""
-    })
-  }
-  const navigate= useNavigate();
+      tagId: "",
+    });
+  };
 
   return (
-    <Button variant="Link" onClick={()=>{handleOnClick()}} style={style}><HiArrowLeft style={{marginRight:"10px" }}/>Back</Button>
-  )
+    <Button variant="Link" onClick={handleOnClick} style={style}>
+      <HiArrowLeft style={{ marginRight: "10px" }} />
+      {children}
+    </Button>
+  );
 }
 
-export default Link ;
+export default Link;

@@ -25,6 +25,12 @@ const BUTTON_STYLES: Record<ButtonVariant, ReturnType<typeof css>> = {
     font-size:21px;
     font-family: "Noto Serif Todhri", serif;
     cursor: pointer;  
+    ${media.mobile`
+  font-size:16px;
+    `}
+  ${media.tablet`
+    font-size:16px;
+    `}
   `,
 Cancel: css`
     color:black;
@@ -117,15 +123,21 @@ ${media.desktop`
 Link: css`
 background:none;
 border: none;
-color: #0a2977;
+color: #7092e8;
 text-align: center;
 font-size:23px;
 font-family: "Noto Serif Todhri", serif;
 cursor: pointer;  
 &:hover,
 &:focus {
-  color: #971212;
+  color: var(--main-color);
 }
+${media.mobile`
+    font-size: 16px;
+    `}
+${media.tablet`
+  font-size: 18px;
+    `}
 `,
 };
 

@@ -3,11 +3,18 @@ import WordsList from "./WordsList";
 import AddModal from "../../ui/AddModal";
 import TagsList from "../Tags/TagsList";
 import { useState } from "react";
+import { media } from "../../styledComponents/Media";
 
 const Content = styled.div`
   padding: 20px;
   font-size: 16px;
   color: #333;
+  ${media.mobile`
+    padding: 0;
+    `}
+${media.tablet`
+  padding:0;
+    `}
 `;
 
 const InfoBox = styled.div`
