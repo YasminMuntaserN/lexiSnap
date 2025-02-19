@@ -17,9 +17,17 @@ import ProtectedRoute from "./ui/ProtectedRoute.tsx";
 import PageNotFound from "./pages/PageNotFound.tsx";
 import MobileApp from "./pages/MobileApp.tsx";
 import AboutUs from "./pages/AboutUs.tsx";
+import { useEffect, useState } from "react";
 
 function App() {
   const queryClient = new QueryClient();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setIsAuthenticated(!!accessToken);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -28,7 +36,7 @@ function App() {
             <UserProvider>
               <ReactQueryDevtools initialIsOpen={false} />
               <Routes>
-                <Route path="/" element={<Navigate to="/login" />} />
+                <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/aboutUs" element={<AboutUs />} />
 
