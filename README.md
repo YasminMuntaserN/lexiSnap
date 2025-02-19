@@ -13,6 +13,8 @@ With an intuitive UI, automatic **dark/light mode**, and seamless syncing across
 - Automatically fetch **definitions, translations, and synonyms** for better understanding.  
 
 ### **Organize & Customize Your Vocabulary**  
+- Create custom word lists based on topics or difficulty.
+- Tag words for easy categorization.
 
 ### **Interactive Learning Tools**  
 - **Search & Navigate:** Quickly find words and view related statements & subtitles.  
@@ -20,8 +22,10 @@ With an intuitive UI, automatic **dark/light mode**, and seamless syncing across
 - **Add Context:** Save example statements and subtitles for each word.  
 
 ### **Seamless User Experience**  
+- **Authentication Persistence:** Stay logged in even after refreshing or revisiting the website.  
 - **Automatic Dark/Light Mode** – Adapts to your browser’s theme.  
 - **Cross-Device Syncing** – Access your saved vocabulary anytime, anywhere.  
+- **Optimized Background Loading:** Faster image rendering for a smoother UI experience.  
 
 ---
 
@@ -43,6 +47,3 @@ With an intuitive UI, automatic **dark/light mode**, and seamless syncing across
 |------------|----------|
 | ![Light Mode](https://imgur.com/LRfZF7W.jpg) | ![Dark Mode](https://imgur.com/fKDSxKM.jpg) |
 | ![Light Mode](https://imgur.com/KXEnbL2.jpg) | ![Dark Mode](https://imgur.com/EYXFKJi.jpg) |
-
-
-
