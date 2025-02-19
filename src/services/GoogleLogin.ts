@@ -1,10 +1,14 @@
-import { signInWithPopup } from "firebase/auth";
+import {setPersistence, browserLocalPersistence,  signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "./firebase";
 
 const backendLoginUrl = "https://lexisnap-server-v2.onrender.com/api/v2/auth/google-sign-in"; 
 
 export const signInWithGoogle = async () => {
   try {
+
+    // Set persistence to remember the user even after closing the browser
+    await setPersistence(auth, browserLocalPersistence);
+
     const result = await signInWithPopup(auth, googleProvider);
     
     const idToken = await result.user.getIdToken();
@@ -29,3 +33,4 @@ export const signInWithGoogle = async () => {
     return null;
   }
 };
+
