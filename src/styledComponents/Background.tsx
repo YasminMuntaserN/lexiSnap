@@ -28,7 +28,7 @@ function Background({ children }) {
 
   const {isDarkMode}=useTheme();
   return (
-    <Container style={{ backgroundImage: "url('./background.png')" }}>
+    <Container style={{ backgroundImage: "url('./background.webp')" }}>
       {!isDarkMode && <Overlay />}
       <SubContainer>
         {children}
