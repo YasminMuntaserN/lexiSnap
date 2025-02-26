@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { createContext,useContext, useState, ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface User {
@@ -75,8 +75,6 @@ export function UserProvider({ children }: UserProviderProps) {
 
 export function useUser(): UserContextType {
   const context = useContext(UserContext);
-  if (!context) {
-    throw new Error("useUser must be used within a UserProvider");
-  }
+  if (!context) throw new Error("useUser must be used within a UserProvider");
   return context;
 }

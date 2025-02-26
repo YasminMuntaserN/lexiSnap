@@ -1,11 +1,11 @@
-import { setPersistence, browserLocalPersistence, signInWithPopup } from "firebase/auth";
+import {setPersistence, browserLocalPersistence,  signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "./firebase";
 
 const backendLoginUrl = "https://lexisnap-server-v2.onrender.com/api/v2/auth/google-sign-in";
 
 interface AuthResponse {
   accessToken: string;
-  user: {
+  data: {
     _id: string;
     name: string;
     email: string;
@@ -51,3 +51,4 @@ export const signInWithGoogle = async (): Promise<AuthResponse> => {
     throw error; 
   }
 };
+

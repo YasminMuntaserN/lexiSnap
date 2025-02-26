@@ -8,8 +8,6 @@ import { useLogin } from "../hooks/useLogin";
 import { IoEarthSharp } from "react-icons/io5";
 import Link from "../ui/Link";
 import { media } from "../styledComponents/Media";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -42,8 +40,6 @@ ${media.mobile`
 
 function Login() {
   const{ login, isLoading, error }=useLogin();
-  const navigate = useNavigate();
-
 
   return (
       <Background>
