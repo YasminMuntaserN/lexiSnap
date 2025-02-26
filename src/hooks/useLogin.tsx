@@ -1,17 +1,30 @@
 import { useMutation } from "@tanstack/react-query";
 import { signInWithGoogle } from "../services/GoogleLogin";
 import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
-export function useLogin(){
-  const {loginUser} =useUser();
+export function useLogin() {
+  const { loginUser } = useUser();
+  const navigate = useNavigate();
 
-  const { mutate, data: user, status, error } = useMutation({
-    mutationFn:signInWithGoogle,
+  const mutation = useMutation({
+    mutationFn: signInWithGoogle,
     onSuccess: (data) => {
       loginUser(data.data);
+      console.log(data);
+      navigate("/dashboard");
     },
-    mutationKey:["login"]
+    onError: (error) => {
+      console.error("Login failed:", error);
+    },
+    mutationKey: ["login"]
   });
 
-  return { mutate , data: user,  isLoading: status === "pending", error };
+  return {
+    login: mutation.mutate,
+    isLoading: mutation.isPending,
+    error: mutation.error,
+    isError: mutation.isError,
+    data: mutation.data
+  };
 }

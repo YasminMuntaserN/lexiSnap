@@ -41,22 +41,16 @@ ${media.mobile`
 `;
 
 function Login() {
-  const{ mutate :GoogleLogin, isLoading, error }=useLogin();
+  const{ login, isLoading, error }=useLogin();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      navigate("/dashboard"); 
-    }
-  }, []);
 
   return (
       <Background>
         <Container>
           <Logo />
           {error && <p>there is problem with logging </p>}
-          <Button variant="full" onClick={() => GoogleLogin()}>
+          <Button variant="full" onClick={() => login()}>
             <Icon as={FcGoogle} />
             {isLoading ? "Signing in..." : "Continue with Google"}
           </Button>
