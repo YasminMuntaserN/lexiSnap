@@ -29,7 +29,7 @@ export function UserProvider({ children }: UserProviderProps) {
 
   const [user, setUser] = useState<User | null>(() => {
     const savedUser = localStorage.getItem("user");
-    return savedUser ? JSON.parse(savedUser) : null;
+    return savedUser && savedUser !== "undefined"  ? JSON.parse(savedUser) : null;
   });
 
   const [accessToken, setAccessToken] = useState<string | null>(() => {
