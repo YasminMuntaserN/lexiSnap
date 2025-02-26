@@ -48,7 +48,6 @@ export const signInWithGoogle = async (): Promise<AuthResponse> => {
     return data;
   } catch (error) {
     console.error("Google Sign-In Error:", error);
-    throw error; 
   }
 };
 

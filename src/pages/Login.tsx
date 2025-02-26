@@ -40,22 +40,31 @@ ${media.mobile`
 
 function Login() {
   const{ login, isLoading, error }=useLogin();
-
+  const handleLogin = async () => {
+    try {
+      await login(); 
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
+  };
+        if(error) return  <p>There is a problem with logging in. Please try again.</p>
   return (
-      <Background>
-        <Container>
-          <Logo />
-          {error && <p>there is problem with logging </p>}
-          <Button variant="full" onClick={() => login()}>
-            <Icon as={FcGoogle} />
-            {isLoading ? "Signing in..." : "Continue with Google"}
-          </Button>
-          <Link to="aboutUs" >
-            <IoEarthSharp style={{marginRight: '20px', fontSize: '23px' ,color:"green" }} />Who We Are
-          </Link>
-          <ThemeToggle />
-        </Container>
-      </Background>
+    <Background>
+      <Container>
+        <Logo />
+        <Button variant="full" onClick={handleLogin}>
+          <Icon as={FcGoogle} />
+          {isLoading ? "Signing in..." : "Continue with Google"}
+        </Button>
+        
+        <Link to="aboutUs">
+          <IoEarthSharp style={{ marginRight: '20px', fontSize: '23px', color: "green" }} />
+          Who We Are
+        </Link>
+        
+        <ThemeToggle />
+      </Container>
+    </Background>
   );
 }
 
