@@ -47,11 +47,11 @@ ${media.tablet`
 `;
 
 function Tags() {
-  const{ mutate , Tags,  isLoading, error}= useGetTags();
+  const{ getTags , Tags,  isLoading, error}= useGetTags();
   
   useEffect(() => {
-    mutate();
-  }, [mutate]);
+    getTags();
+  }, [getTags]);
   
   return (
     <Page>

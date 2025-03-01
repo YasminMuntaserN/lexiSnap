@@ -1,4 +1,4 @@
-import { css, FlattenSimpleInterpolation } from 'styled-components';
+import { css } from 'styled-components';
 
 const sizes = {
   mobile: { min: '320px', max: '480px' },
@@ -7,33 +7,28 @@ const sizes = {
   desktop: { min: '1200px' },
 };
 
-type MediaFunction = (
-  strings: TemplateStringsArray,
-  ...interpolations: Array<((props) => string) | string>
-) => FlattenSimpleInterpolation;
-
 export const media = {
-  mobile: ((strings: TemplateStringsArray, ...interpolations: Array<((props) => string) | string>) => css`
+  mobile: (strings: TemplateStringsArray, ...interpolations) => css`
     @media (min-width: ${sizes.mobile.min}) and (max-width: ${sizes.mobile.max}) {
       ${css(strings, ...interpolations)}
     }
-  `) as MediaFunction,
+  `,
 
-  tablet: ((strings: TemplateStringsArray, ...interpolations: Array<((props) => string) | string>) => css`
+  tablet: (strings: TemplateStringsArray, ...interpolations) => css`
     @media (min-width: ${sizes.tablet.min}) and (max-width: ${sizes.tablet.max}) {
       ${css(strings, ...interpolations)}
     }
-  `) as MediaFunction,
+  `,
 
-  largeTablet: ((strings: TemplateStringsArray, ...interpolations: Array<((props) => string) | string>) => css`
+  largeTablet: (strings: TemplateStringsArray, ...interpolations) => css`
     @media (min-width: ${sizes.largeTablet.min}) and (max-width: ${sizes.largeTablet.max}) {
       ${css(strings, ...interpolations)}
     }
-  `) as MediaFunction,
+  `,
 
-  desktop: ((strings: TemplateStringsArray, ...interpolations: Array<((props) => string) | string>) => css`
+  desktop: (strings: TemplateStringsArray, ...interpolations) => css`
     @media (min-width: ${sizes.desktop.min}) {
       ${css(strings, ...interpolations)}
     }
-  `) as MediaFunction,
+  `,
 };
