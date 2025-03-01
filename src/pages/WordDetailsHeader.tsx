@@ -12,10 +12,10 @@ import { media } from "../styledComponents/Media";
 
 const H1 =styled.h1`
   ${media.tablet`
-    font-size:16px;
+    font-size:18px;
   `}
   ${media.mobile`
-    font-size:16px;
+    font-size:12px;
   `}
 `
 function WordDetailsHeader({update ,deleteWord}){

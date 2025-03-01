@@ -8,110 +8,169 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import { media } from "../styledComponents/Media";
 
-const Container = styled.div`
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  border: 2px solid var(--color-gray); 
-  border-radius: 30px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
-  ${media.largeTablet`
-    height:80vh ;
-  `}
+interface ContainerProps {
+  $isHidden: boolean;
+}
 
+const Container = styled.div<ContainerProps>`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 20px;
+  padding: 10px;
+  padding-top:15px;
+  border: 2px solid var(--color-gray); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  height: 80vh;
   ${media.mobile`
-    border: none; 
-    box-shadow: none; 
-    box-shadow: 0 4px 6px rgba(219, 202, 202, 0.5); 
-    border-radius: 5px;
+    background: var(--color-box-background);
+    display: ${(props: ContainerProps) => props.$isHidden ? 'none' : 'flex'};
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 20px 20px 0 0;
+    padding: 15px;
+    padding-top:0;
+    z-index: 1000;
+    height: 12vh;
   `}
 
   ${media.tablet`
-    border: none; 
-    box-shadow: none;
-    box-shadow: 0 4px 6px rgba(219, 202, 202, 0.5); 
-    border-radius: 5px;
-    `}
-
+    background: var(--color-box-background);
+    display: ${(props: ContainerProps) => props.$isHidden ? 'none' : 'flex'};
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 20px 20px 0 0;
+    padding: 15px;
+    padding-top:0;
+    z-index: 1000;
+    height: 12vh;
+  `}
 `;
 
-const Box = styled.div`
+const NavigationItems = styled.div`
   display: flex;
-  justify-content: center;
-  justify-items: center;
-  align-items: center;
   flex-direction: column;
-  font-size: 18px;
-  color: var(--main-color);
-  margin: auto;
-  gap: 5px;
-  cursor: pointer;
-  padding: 10px;
+  gap: 30px;
 
-  &:hover,
-  &:focus {
-    color: var(--second-color); 
-    transform: scale(1.1); 
-    transition: all 0.2s ease; 
-  }
   ${media.mobile`
-    display: grid;
-  justify-content: space-between;
-  grid-template-columns: 1fr 1fr ;
-  font-size: 14px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
   `}
 
   ${media.tablet`
-    display: grid;
-  justify-content: space-between;
-  grid-template-columns: 1fr 1fr ;
-  font-size: 16px;
-    `}
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 12px;
+  `}
+`;
 
+const NavItem = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--main-color);
+
+  &:hover {
+    color: var(--second-color);
+    transform: translateX(5px);
+  }
+
+  ${media.mobile`
+    gap: 6px;
+    padding: 8px;
+    font-size: 12px;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  `}
+
+  ${media.tablet`
+    gap: 8px;
+    padding: 10px;
+    font-size: 14px;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  `}
 `;
 
 const Icon = styled.div`
-  font-size: 32px;
-  ${media.mobile`font-size: 21px;`}
-  ${media.tablet`font-size: 21px;`}
+  font-size: 24px;
+  color: inherit;
+  ${media.mobile`
+    font-size: 20px;
+  `}
+
+  ${media.tablet`
+    font-size: 22px;
+  `}
 `;
 
-function Sidebar() {
-  const{isMobileMode ,displayMenu, setDisplayMenu}=useTheme();
+const Label = styled.span`
+  font-size: 18px;
+  font-weight: 500;
+
+  ${media.mobile`
+    font-size: 12px;
+  `}
+
+  ${media.tablet`
+    font-size: 14px;
+  `}
+`;
+
+interface SidebarProps {
+  isHidden?: boolean;
+}
+
+function Sidebar({ isHidden = false }: SidebarProps) {
   const navigate = useNavigate();
+  const { isMobileMode, setDisplayMenu } = useTheme();
+
+  const navigationItems = [
+    { icon: FaHashtag, label: "Tags", path: "/tags" },
+    { icon: IoExtensionPuzzle, label: "Extension", path: "/extension" },
+    { icon: FaMobileAlt, label: "Mobile App", path: "/mobileApp" },
+    { icon: FaHandHoldingHeart, label: "Important", path: "/important" },
+    { icon: GrContact, label: "Contact", path: "/contact" },
+  ];
 
   const handleNavigation = (path: string) => {
     navigate(path);
-    setDisplayMenu(true);
+    if (isMobileMode) {
+      setDisplayMenu(true);
+    }
   };
 
   return (
-    <>
-    {!(isMobileMode && displayMenu) &&
-    (<Container>
-      <Box onClick={() => handleNavigation('/tags')}>
-        <Icon as={FaHashtag} />
-            Tags
-      </Box>
-      <Box onClick={() => handleNavigation('/extension')}>
-        <Icon as={IoExtensionPuzzle} />
-        Our Extension
-      </Box>
-      <Box onClick={() => handleNavigation('/mobileApp')}>
-        <Icon as={FaMobileAlt} />
-        Mobile App
-      </Box>
-      <Box onClick={() => handleNavigation('/important')}>
-        <Icon as={FaHandHoldingHeart} />
-        Important
-      </Box>
-      <Box onClick={() => handleNavigation('/contact')}>
-        <Icon as={GrContact} />
-        Contact Us
-      </Box>
-    
+    <Container $isHidden={isHidden}>
+      <NavigationItems>
+        {navigationItems.map((item, index) => (
+          <NavItem
+            key={index}
+            onClick={() => handleNavigation(item.path)}
+          >
+            <Icon as={item.icon} />
+            <Label>{item.label}</Label>
+          </NavItem>
+        ))}
+      </NavigationItems>
     </Container>
-    )}
-    </>
   );
 }
 

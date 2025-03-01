@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import { media } from "../styledComponents/Media";
 import { Panel } from "../styledComponents/Panel";
 import { useLocation } from "react-router-dom";
+import AddNewTag from "../components/Tags/AddNewTag";
 
 const Container = styled.div`
 display: grid;
@@ -30,7 +31,8 @@ ${media.desktop`
 `;
 
 const ContentWrapper = styled.div<{ added: boolean }>`
-display:${({ added }) => (added ?"flex": "")};
+display: grid;
+grid-template-columns:2fr 0.2fr;
 justify-content:${({ added }) => (added ?"space-between": "")};
 padding-bottom: 10px;
 overflow-y:auto;
@@ -53,7 +55,7 @@ function Page({ children }) {
           <Sidebar />
           <ContentWrapper added={location.pathname !== "/tags"}>
             <ContentContainer>{children}</ContentContainer>
-          {location.pathname !== "/tags" && <AddNewWord />}
+            <div>{location.pathname !== "/tags" ? <AddNewWord /> :  <AddNewTag />}</div>
           </ContentWrapper>
         </Container>
       </Panel>

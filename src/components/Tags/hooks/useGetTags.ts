@@ -12,7 +12,7 @@ export function useGetTags() {
     onSuccess: (data) => setTagsTotalPages(data.totalPages),
   });
 
-  return { mutate , Tags :data?.data,  isLoading: status === "pending", error };
+  return {getTags: mutate, Tags :data?.data,  isLoading: status === "pending", error };
 }
 
 
@@ -22,5 +22,5 @@ export function useGetTag(){
     mutationKey:["Tag"]
   });
 
-  return { mutate , Tag,  isLoading: status === "pending", error };
+  return { mutate  , Tag,  isLoading: status === "pending", error };
 }

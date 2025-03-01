@@ -1,18 +1,40 @@
+import styled from "styled-components";
 import AddForm from "./AddForm";
 import Modal from "./Modal";
+import { media } from "../styledComponents/Media";
 
-function AddModal({onCloseParentModal , name}){
+const AddLink = styled.span`
+  color: var(--main-color);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+  }
+
+  ${media.mobile`
+    font-size: 14px;
+  `}
+`;
+
+interface AddModalProps {
+  onCloseParentModal?: () => void;
+  name: string;
+}
+
+function AddModal({ onCloseParentModal, name }: AddModalProps) {
   return (
     <Modal>
-    <Modal.Open opens={`${name}InputForm`}>
-    <span style={{ color: "blue", cursor: "pointer" }}> here </span>  
-    </Modal.Open>
-
+      <Modal.Open opens={`${name}InputForm`}>
+        <AddLink>here</AddLink>
+      </Modal.Open>
       <Modal.Window name={`${name}InputForm`}>
-        <AddForm  onCloseParentModal={onCloseParentModal}  name={name}/>
+        <AddForm onCloseParentModal={onCloseParentModal} name={name} />
       </Modal.Window>
-    </Modal>    
-  )
+    </Modal>
+  );
 }
 
 export default AddModal;

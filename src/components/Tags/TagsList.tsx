@@ -9,59 +9,84 @@ import { Button } from "../../styledComponents/Button";
 import { HiArrowLeftCircle } from "react-icons/hi2";
 import {Loader} from "../../ui/Loader";
 import { media } from "../../styledComponents/Media";
+
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  height: 400px;
+  max-height:400px;
   padding: 20px;
-  margin: 10px;
   gap: 15px;
+
   ${media.mobile`
-    margin:0;
-    height: 300px;
-    width:100%;
-    `}
-${media.tablet`
-  margin:0;
-  height: 300px;
-  width:100%;
-    `}
+    padding: 10px;
+    max-height: 200px;
+    gap: 10px;
+  `}
+
+  ${media.tablet`
+    padding: 15px;
+    max-height: 300px;
+    gap: 12px;
+  `}
 `;
 
-const Text = styled.div<{ added: boolean }>`
+const TagCard = styled.div<{ added: boolean }>`
   display: flex;
   justify-content: space-between;
-  background-color: ${({ added }) => (added ? "var(--color-dark-gray)" : "#ececf3")};
-  padding: 10px;
-  font-size: 18px;
-  padding-left: 50px;
-  border-radius: 10px;
-  color: ${({ added }) => (added ? "var(--main-color)" : "var(--background-color-two)")};
-  cursor: ${({ added }) => (added ? "default" : "pointer")};
-  pointer-events: ${({ added }) => (added ? "none" : "auto")};
+  align-items: center;
+  background-color: ${({ added }) => 
+    added ? "var(--color-dark-gray)" : "var(--color-box-background)"};
+  padding: 15px;
+  border-radius: 12px;
+  color: ${({ added }) => 
+    added ? "var(--main-color)" : "var(--text-color)"};
+  cursor: ${({ added }) => added ? "default" : "pointer"};
+  pointer-events: ${({ added }) => added ? "none" : "auto"};
+  transition: all 0.2s ease;
 
   &:hover {
-    background-color:var(--color-dark-gray);
+    background-color: var(--color-dark-gray);
     color: var(--main-color);
+    transform: translateY(-2px);
   }
+
   ${media.mobile`
-    padding-left:5px;
+    padding: 12px;
     font-size: 14px;
-    `}
-${media.tablet`
-  padding-left:15px;
-  font-size: 16px;
-    `}
+  `}
+
+  ${media.tablet`
+    padding: 14px;
+    font-size: 16px;
+  `}
 `;
 
-const H2 =styled.h2`
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
   ${media.mobile`
-    font-size: 16px;
-    `}
-${media.tablet`
-  font-size: 16px;
-    `}
+    margin-bottom: 15px;
+    flex-direction: column;
+    gap: 10px;
+  `}
+`;
+
+const Title = styled.h2`
+  font-size: 24px;
+  color: var(--text-color);
+
+  ${media.mobile`
+    font-size: 20px;
+  `}
+
+  ${media.tablet`
+    font-size: 22px;
+  `}
 `;
 
 interface TagsListProps {
@@ -71,7 +96,7 @@ interface TagsListProps {
 }
 
 function TagsList({ showTagsList, type, setShowTagsList }: TagsListProps) {
-  const { mutate: getTags, Tags, isLoading: TagsLoading, error: TagsError } = useGetTags();
+  const { Tags, isLoading, error, getTags } = useGetTags();
   const [isAdded, setIsAdded] = useState<{ [key: number]: boolean }>({});
   const [TagWordsId, setTagWordsId] = useState<string>("");
   const { updateWord, word, setSearchInfo } = useWord();
@@ -86,7 +111,7 @@ function TagsList({ showTagsList, type, setShowTagsList }: TagsListProps) {
         if (word.tags?.some(tag => 
           typeof tag === 'string' ? tag === t.name : tag.name === t.name
         )) {
-          setIsAdded((prev) => ({ ...prev, [index]: true }));
+          setIsAdded(prev => ({ ...prev, [index]: true }));
         }
       });
     }
@@ -97,7 +122,7 @@ function TagsList({ showTagsList, type, setShowTagsList }: TagsListProps) {
       setTagWordsId(Id);
       setSearchInfo(prev => ({ ...prev, tagId: Id }));
     } else {
-      setIsAdded((prev) => ({
+      setIsAdded(prev => ({
         ...prev,
         [index]: true,
       }));
@@ -123,29 +148,44 @@ function TagsList({ showTagsList, type, setShowTagsList }: TagsListProps) {
 
   return (
     <Container>
-      {TagsLoading && <Loader />}
-      {TagsError && <p>Error loading tags...</p>}
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <Header>
         {showTagsList && (
-          <Button style={{ fontSize: "32px" }} variant="Link" onClick={() => setShowTagsList(false)}>
+          <Button 
+            variant="Link" 
+            onClick={() => setShowTagsList(false)}
+            style={{ fontSize: "32px" }}
+          >
             <HiArrowLeftCircle />
           </Button>
         )}
-        <H2>All Tags You Added:</H2>
-      </div>
+        <Title>All Tags You Added</Title>
+      </Header>
+
+      {isLoading && <Loader />}
+      {error && <p>Error loading tags...</p>}
+
       {Tags?.map((tag, index) => (
-        <Text
+        <TagCard
           key={index}
           added={isAdded[index]}
           onClick={() => !isAdded[index] && handleClick(index, tag.name, tag._id)}
         >
-          <p>
-            <FaHashtag style={{ color: "var(--main-color)", fontSize: "20px", marginRight: "20px" }} />
-            {tag.name}
-          </p>
-          <p>{tag.wordsCount === 0 ? "Empty" : `${tag.wordsCount} words`}</p>
-          {isAdded[index] && <MdOutlineBookmarkAdded style={{ color: "green", fontSize: "27px" }} />}
-        </Text>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <FaHashtag style={{ color: "var(--main-color)" }} />
+            <span>{tag.name}</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>{tag.wordsCount === 0 ? "Empty" : `${tag.wordsCount} words`}</span>
+            {isAdded[index] && (
+              <MdOutlineBookmarkAdded 
+                style={{ 
+                  color: "var(--color-green)", 
+                  fontSize: "24px"
+                }} 
+              />
+            )}
+          </div>
+        </TagCard>
       ))}
     </Container>
   );

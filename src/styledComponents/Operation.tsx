@@ -1,10 +1,20 @@
 import styled from "styled-components";
 import { media } from "./Media";
 
-export const Operation=styled.div`
+export const Operation = styled.div`
   display: grid;
-  justify-content: space-between;
-  width:100%;
+  width: 100%;
+  gap: 20px;
   grid-template-columns: 1fr 0.1fr 1fr;
-    ${media.mobile`  grid-template-columns: 1fr 2fr ; gap:20px; `}
+  align-items: start;
+
+  ${media.mobile`
+    grid-template-columns: 1fr;
+    gap: 15px;
+  `}
+
+  ${media.tablet`
+    grid-template-columns: 1fr 0.1fr 1fr;
+    gap: 15px;
+  `}
 `;

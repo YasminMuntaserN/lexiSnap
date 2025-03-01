@@ -25,7 +25,15 @@ ${media.tablet`
   padding-left:0;
     `}
 `;
-
+const H2 = styled.h2`
+ font-size:21px;
+${media.mobile`
+  font-size:12px;
+    `}
+${media.tablet`
+  font-size:16px;
+    `}
+`;
 function WordDetails(){
   const {wordId}=useParams();
   const {mutate :getWord , isLoading, error }=useGetWord();
@@ -59,8 +67,9 @@ function WordDetails(){
       :<Container>
         <WordDetailsHeader update={update} deleteWord={deleteWord}/>
         <Header style={{border:"none"}}>
-          <h2><Icon as={FcReading} style={{marginRight:"20px"}}/>{word?.word}</h2>
-          <GiSoundWaves size={36} onClick={() => speakWord(word?.word)} />
+          <Icon as={FcReading} />
+          <H2>{word?.word}</H2>
+          <Icon as={GiSoundWaves}  onClick={() => speakWord(word?.word)} />
         </Header>
 
         <WordOperations />

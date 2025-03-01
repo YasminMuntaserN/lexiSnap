@@ -1,5 +1,7 @@
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
+import { media } from './Media';
 
 const Container = styled.div`
   position: relative; 
@@ -8,6 +10,15 @@ const Container = styled.div`
   background-size: cover;
   width: 100%;
   padding-top: 30px;
+  min-height: 100vh;
+
+  ${media.mobile`
+    padding-top: 15px;
+  `}
+
+  ${media.tablet`
+    padding-top: 20px;
+  `}
 `;
 
 const Overlay = styled.div`
@@ -21,12 +32,26 @@ const Overlay = styled.div`
 const SubContainer = styled.div`
   position: relative; 
   z-index: 10;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
+  padding-bottom: 60px;
+
+  ${media.mobile`
+    padding-bottom: 80px;
+  `}
+
+  ${media.tablet`
+    padding-bottom: 70px;
+  `}
 `;
 
-function Background({ children }) {
+interface BackgroundProps {
+  children: ReactNode;
+}
 
-  const {isDarkMode}=useTheme();
+function Background({ children }: BackgroundProps) {
+  const { isDarkMode } = useTheme();
+  
   return (
     <Container style={{ backgroundImage: "url('./background.webp')" }}>
       {!isDarkMode && <Overlay />}
@@ -38,3 +63,4 @@ function Background({ children }) {
 }
 
 export default Background;
+

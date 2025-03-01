@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Page from "../ui/Page";
-import AddNewTag from "../components/Tags/AddNewTag";
 import Tag from "../components/Tags/Tag";
 import { useGetTags } from "../components/Tags/hooks/useGetTags";
 import { useEffect } from "react";
@@ -11,7 +10,6 @@ import { media } from "../styledComponents/Media";
 
 const ContentContainer =styled.div`
 display:grid;
-grid-template-columns:2fr 0.2fr;
 justify-content:space-between;
 gap:100px;
 padding:20px;
@@ -22,6 +20,7 @@ margin:50px;
     margin:0px;
     `}
 `;
+
 const TagsContainer =styled.div`
 display: flex;
 /* flex-direction: column; */
@@ -70,7 +69,6 @@ function Tags() {
               <p>No tags found.</p>
             )}
           </TagsContainer>
-        <AddNewTag />
       </ContentContainer>
     </Page>
   );

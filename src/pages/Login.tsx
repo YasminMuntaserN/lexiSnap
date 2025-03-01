@@ -39,15 +39,20 @@ ${media.mobile`
 `;
 
 function Login() {
-  const{ login, isLoading, error }=useLogin();
+  const { login, isLoading, error } = useLogin();
+
   const handleLogin = async () => {
     try {
-      await login(); 
+      await login();
     } catch (err) {
       console.error("Login failed:", err);
     }
   };
-        if(error) return  <p>There is a problem with logging in. Please try again.</p>
+
+  if (error && typeof error === "object") {
+    return <p>There is a problem with logging in. Please try again.</p>;
+  }
+
   return (
     <Background>
       <Container>
