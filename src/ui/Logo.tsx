@@ -1,7 +1,8 @@
+import Image from "./Image"
 
 function Logo() {
   return (
-    <img src="./LightLogo.png" alt="logo" />
+    <Image size="full" src="./LightLogo.png" alt="logo" />
   )
 }
 

@@ -11,22 +11,26 @@ import { media } from "../styledComponents/Media";
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
-  justify-self: center;
   flex-direction: column;
-  width: 30%;
-  gap: 30px;
-  height: 80%;
   align-items: center;
+  justify-content: center; 
+  width: 100%;
+  max-width: 400px;
+  gap: 30px;
+  height: auto;
+  margin: auto;
+  padding-top:10%;
+  text-align: center;
   ${media.mobile`
-      width:70%;
-    `}
-  
-    ${media.tablet`
-      width:70%;
-      `}
-`;
+    width: 80%;
+    padding-top:50%;
+  `}
 
+  ${media.tablet`
+    width: 70%;
+  padding-top:30%;
+  `}
+`;
 const Icon=styled.div`
 margin-right: 20px;
 font-size: 23px;
