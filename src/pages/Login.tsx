@@ -43,7 +43,7 @@ ${media.mobile`
 `;
 
 function Login() {
-  const { login, isLoading, error } = useLogin();
+  const { login, isLoading } = useLogin();
 
   const handleLogin = async () => {
     try {
@@ -53,9 +53,7 @@ function Login() {
     }
   };
 
-  if (error && typeof error === "object") {
-    return <p>There is a problem with logging in. Please try again.</p>;
-  }
+
 
   return (
     <Background>
